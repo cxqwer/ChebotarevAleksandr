@@ -27,7 +27,7 @@ public class Simpletest {
         driver.navigate().to(s);
 
         //3
-//        assertEquals(driver.getTitle(), "Home Page");
+        assertEquals(driver.getTitle(), "Home Page");
 
         //4
 //        driver.close();
