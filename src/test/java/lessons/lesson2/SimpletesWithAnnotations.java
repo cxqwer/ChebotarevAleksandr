@@ -1,6 +1,5 @@
-package lesson2;
+package lessons.lesson2;
 
-import base.SeleniumBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,9 +13,13 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
 
-public class SimpletesWithAnnotations2 extends SeleniumBase {
-
+public class SimpletesWithAnnotations {
     private WebDriver driver;
+
+    @BeforeClass
+    public void beforeClass() {
+        setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
+    }
 
     @BeforeMethod
     public void  beforeMethod(){
@@ -30,7 +33,7 @@ public class SimpletesWithAnnotations2 extends SeleniumBase {
         driver.close();
     }
 
-    @Test(invocationCount = 1)
+    @Test(invocationCount = 3)
     public void simpleTest() {
 
         String handle = driver.getWindowHandle();

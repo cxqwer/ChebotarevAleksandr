@@ -1,25 +1,20 @@
-package lesson2;
+package lessons.lesson2;
 
+import base.SeleniumBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
 
-public class SimpletesWithAnnotations {
-    private WebDriver driver;
+public class SimpletesWithAnnotations2 extends SeleniumBase {
 
-    @BeforeClass
-    public void beforeClass() {
-        setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
-    }
+    private WebDriver driver;
 
     @BeforeMethod
     public void  beforeMethod(){
@@ -33,7 +28,7 @@ public class SimpletesWithAnnotations {
         driver.close();
     }
 
-    @Test(invocationCount = 3)
+    @Test(invocationCount = 1)
     public void simpleTest() {
 
         String handle = driver.getWindowHandle();

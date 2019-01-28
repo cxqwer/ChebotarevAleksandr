@@ -1,13 +1,10 @@
-package hw2.ex3;
+package homeworks.hw2.ex3;
 
-import base.SeleniumBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.List;
 
@@ -15,18 +12,33 @@ import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class Hw1TestsWithAnnotations extends SeleniumBase {
+public class Hw1TestsWithAnnotations {
+
     private WebDriver driver = null;
 
-    @BeforeMethod
-    public void beforeMethod() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+    @BeforeSuite
+    public void beforeSuite() {
+        setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
     }
-
-    @AfterMethod
-    public void afterMethod(){
-        driver.close();
+        @BeforeClass
+        public void beforeClass() {
+            driver = new ChromeDriver();
+        }
+            @BeforeMethod
+            public void beforeMethod() {
+                driver.manage().window().maximize();
+            }
+            @AfterMethod
+            public void afterMethod() {
+                System.out.println(driver.getTitle());
+            }
+        @AfterClass
+        public void afterClass() {
+            driver.close();
+        }
+    @AfterSuite
+    public void afterSuite() {
+        System.out.println(System.currentTimeMillis());
     }
 
     @Test

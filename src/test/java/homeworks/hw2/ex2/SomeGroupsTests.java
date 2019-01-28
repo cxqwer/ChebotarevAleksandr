@@ -1,4 +1,4 @@
-package hw2.ex2;
+package homeworks.hw2.ex2;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,9 +12,9 @@ import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class SmokeGroupsTests {
+public class SomeGroupsTests {
 
-    @Test(groups = {"Smoke"})
+    @Test(groups = {"Regression"})
     public void tests1() {
         setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
@@ -132,7 +132,7 @@ public class SmokeGroupsTests {
         driver.close();
     }
 
-    @Test(groups = {"Smoke"})
+    @Test(groups = {"Regression"})
     public void tests2() {
         setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();

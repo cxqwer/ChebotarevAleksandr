@@ -5,7 +5,7 @@
     <test name="Hw1TestsWithAnnotations" >
 
         <classes>
-            <class name="hw2.ex3.Hw1TestsWithAnnotations"/>
+            <class name="homeworks.hw2.ex3.Hw1TestsWithAnnotations"/>
         </classes>
 
     </test>
