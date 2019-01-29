@@ -105,7 +105,7 @@ public class HomeworkSoftTest {
         //11 Switch to the iframe and check that there is Epam logo in the left top conner of iframe
         cssSelect = "[id='iframe']";
         driver.switchTo().frame("iframe");
-        softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
+        softAssert.assertTrue(driver.findElement(By.cssSelector("[id='epam_logo']")).isDisplayed());
 
         //12 Switch to original window back
         driver.switchTo().defaultContent();
