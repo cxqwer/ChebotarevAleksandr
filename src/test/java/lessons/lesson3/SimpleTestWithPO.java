@@ -3,6 +3,8 @@ package lessons.lesson3;
 import base.SeleniumBase;
 import base.lesson3.IndexPage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,19 +14,20 @@ public class SimpleTestWithPO extends SeleniumBase {
     private WebDriver driver;
 
     @BeforeMethod
-    public void initTest() {
-        indexPage = new IndexPage(driver);
+    public void initTest(){
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        indexPage = PageFactory.initElements(driver, IndexPage.class);
     }
 
     @AfterMethod
-    public void closeTest() {
+    public void closeTest(){
         driver.close();
     }
 
     @Test
-    public void SimpleTest() {
+    public void SimpleTest(){
         indexPage.open();
-        indexPage.login("Pavel", "1234");
+        indexPage.login("epam", "1234");
     }
-
 }
