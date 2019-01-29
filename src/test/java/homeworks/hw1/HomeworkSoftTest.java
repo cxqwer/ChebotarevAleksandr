@@ -9,11 +9,14 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
+import static java.lang.System.setProperty;
+
 
 public class HomeworkSoftTest {
 
     @Test
     public void tests() {
+        setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
         SoftAssert softAssert = new SoftAssert();
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
