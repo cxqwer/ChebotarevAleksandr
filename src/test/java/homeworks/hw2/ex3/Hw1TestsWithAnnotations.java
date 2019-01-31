@@ -16,8 +16,6 @@ public class Hw1TestsWithAnnotations {
 
     private WebDriver driver;
 
-    // TODO Nice attempt, but NO =))
-    // TODO You have to format your code in according to Java Code Convention !
     @BeforeSuite
     public void beforeSuite() {
         setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");

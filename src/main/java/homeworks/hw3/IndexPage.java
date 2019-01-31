@@ -71,6 +71,7 @@ public class IndexPage {
     @FindBy(css = "[class='footer-bg']")
     private WebElement footer;
 
+    // TODO Useless methods should be removed.
     public String getMainTitle() {
         return mainTitle.getText();
     }
@@ -146,8 +147,8 @@ public class IndexPage {
         submitButton.click();
     }
 
-    public void checkUserIsLoggined(String name) {
-        assertEquals(userName.getText(), name);
+    public void checkUserIsLoggined(Users user) {
+        assertEquals(userName.getText(), user.name);
     }
 
     public void chekFourthImages() {
@@ -156,14 +157,15 @@ public class IndexPage {
 
     public void chekItemsTexts(HomePageData[] itemsText) {
         assertTrue(items.isDisplayed());
-        for(HomePageData item: itemsText){
+        for (HomePageData item : itemsText) {
             assertTrue(items.getText().contains(item.toString()));
         }
     }
 
     public void chekTextUnderIcons(HomePageData[] textUnderIcons) {
+        // TODO
         int i = 0;
-        for (HomePageData text:textUnderIcons){
+        for (HomePageData text : textUnderIcons) {
             assertEquals(text.toString(), getBenefitText(i));
             i++;
         }

@@ -4,9 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+// TODO Pay attention on useless imports.. (ctrl + alt + o)
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.System.setProperty;
@@ -38,73 +40,68 @@ public class HomeworkTest {
 
         //4 Assert User name in the left-top side of screen that user is loggined
         String actualName = driver.findElement(By.cssSelector("[id='user-name'")).getText();
-        String assertName = "PITER CHAILOVSKII";
-        assertEquals(actualName, actualName);
+        String expectedName = "PITER CHAILOVSKII";
+        assertEquals(actualName, expectedName);
 
         //5 Assert Browser title
-        title = "Home Page";
         assertEquals(driver.getTitle(), title);
 
-        // TODO What is the reason of local variable "text" here ?
-        // TODO Assertions should be as simply as possible, your approach can be improved.
+        // TODO
         //6 Assert that there are 4 items on the header section are displayed and they have proper texts
-        String cssSelect = "[class='uui-navigation nav navbar-nav m-l8']";
-        assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
-        String properText = driver.findElement(By.cssSelector(cssSelect)).getText();
-        assertTrue(properText.lastIndexOf("HOME") >= 0);
-        assertTrue(properText.lastIndexOf("CONTACT FORM") >= 0);
-        assertTrue(properText.lastIndexOf("SERVICE") >= 0);
-        assertTrue(properText.lastIndexOf("METALS & COLORS") >= 0);
+        WebElement nav = driver.findElement(By.cssSelector("[class='uui-navigation nav navbar-nav m-l8']"));
+        assertTrue(nav.isDisplayed());
+        String actualMenuItems = nav.getText();
+        List<String> strings = Arrays.asList("HOME", "SERVICE");
+        for (String string : strings) {
+            actualMenuItems.contains(string);
+        }
+        assertTrue(actualMenuItems.contains("HOME"));
+        assertTrue(actualMenuItems.lastIndexOf("CONTACT FORM") >= 0);
+        assertTrue(actualMenuItems.lastIndexOf("SERVICE") >= 0);
+        assertTrue(actualMenuItems.lastIndexOf("METALS & COLORS") >= 0);
+        // !TODO
 
-        // TODO Same story about local variable.
-        // TODO This might be better with cycle.
         //7 Assert that there are 4 images on the Index Page and they are displayed
-        {
-            String[] cssSelects = {
-                    "[class='icons-benefit icon-practise']",
-                    "[class='icons-benefit icon-custom']",
-                    "[class='icons-benefit icon-multi']",
-                    "[class='icons-benefit icon-base']"
-            };
-            for (String sccSelect : cssSelects) {
-                assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
-
-            }
+        String[] cssSelects = {
+                "[class='icons-benefit icon-practise']",
+                "[class='icons-benefit icon-custom']",
+                "[class='icons-benefit icon-multi']",
+                "[class='icons-benefit icon-base']"
+        };
+        for (String sccSelect : cssSelects) {
+            // TODO
+            assertTrue(driver.findElement(By.cssSelector(sccSelect)).isDisplayed());
         }
 
         //8 Assert that there are 4 texts on the Index Page under icons and they have proper text
-        // TODO Take a look on IDEA warning
-        {
-            String[] texts = {
-                    "To include good practices\n" + "and ideas from successful\n" + "EPAM project",
-                    "To be flexible and\n" + "customizable",
-                    "To be multiplatform",
-                    "Already have good base\n" + "(about 20 internal and\n" + "some external projects),\n" + "wish to get more…"
-            };
-            List<WebElement> webElements = driver.findElements(By.cssSelector("[class='benefit-txt']"));
-            assertEquals(webElements.size(), texts.length);
-            int i = 0;
-            for (WebElement element : webElements) {
-                assertEquals(element.getText(), texts[i]);
-                assertTrue(element.isDisplayed());
-                i++;
-            }
+        String[] texts = {
+                "To include good practices\n" + "and ideas from successful\n" + "EPAM project",
+                "To be flexible and\n" + "customizable",
+                "To be multiplatform",
+                "Already have good base\n" + "(about 20 internal and\n" + "some external projects),\n" + "wish to get more…"
+        };
+        List<String> strings1 = Arrays.asList("", "");
+        List<WebElement> webElements = driver.findElements(By.cssSelector("[class='benefit-txt']"));
+        assertEquals(webElements.size(), texts.length);
+        // TODO
+        for (WebElement element : webElements) {
+            Assert.assertTrue(strings1.contains(element.getText()));
+            assertTrue(element.isDisplayed());
         }
+        // !TODO
 
         //9 Assert a text of the main headers
-        {
-            cssSelect = "[name='main-title']";
-            assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
-            String text = "EPAM FRAMEWORK WISHES…";
-            assertEquals(driver.findElement(By.cssSelector(cssSelect)).getText(), text);
-            cssSelect = "[name='jdi-text']";
-            assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
-            text = "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT " +
-                    "UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO " +
-                    "LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN " +
-                    "VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.";
-            assertEquals(driver.findElement(By.cssSelector(cssSelect)).getText(), text);
-        }
+        String cssSelect = "[name='main-title']";
+        assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
+        String text = "EPAM FRAMEWORK WISHES…";
+        assertEquals(driver.findElement(By.cssSelector(cssSelect)).getText(), text);
+        String cssSelect1 = "[name='jdi-text']";
+        assertTrue(driver.findElement(By.cssSelector(cssSelect1)).isDisplayed());
+        text = "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT " +
+                "UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO " +
+                "LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN " +
+                "VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.";
+        assertEquals(driver.findElement(By.cssSelector(cssSelect1)).getText(), text);
 
         //10 Assert that there is the iframe in the center of page
         assertTrue(driver.findElement(By.cssSelector("[id='iframe']")).isDisplayed());

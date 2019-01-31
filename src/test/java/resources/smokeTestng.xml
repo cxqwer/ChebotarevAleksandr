@@ -9,6 +9,7 @@
                 <include name="Regression"/>
             </run>
         </groups>
+        <!--TODO This will be better with package-->
         <classes>
             <class name="homeworks.hw2.ex2.SmokeGroupsTests"/>
             <class name="homeworks.hw2.ex2.SomeGroupsTests"/>
