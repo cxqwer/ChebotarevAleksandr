@@ -1,24 +1,24 @@
 package homeworks.hw2.ex1;
 
-import base.SeleniumBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class TestWithDataProvider {
+    private static final String CSS_SELECT = "[class='benefit-txt']";
+    private static final String URL = "https://epam.github.io/JDI/index.html";
 
-    private String cssSelect = "[class='benefit-txt']";
     private WebDriver driver;
-    static String URL = "https://epam.github.io/JDI/index.html";
 
     @DataProvider(parallel = true)
     private Object[][] dataProvider() {
@@ -31,7 +31,7 @@ public class TestWithDataProvider {
     }
 
     @BeforeSuite
-    private void  beforeSuite(){
+    private void beforeSuite() {
         setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -39,14 +39,13 @@ public class TestWithDataProvider {
     }
 
     @AfterSuite
-    public void afterSuite(){
+    public void afterSuite() {
         driver.close();
     }
 
     @Test(dataProvider = "dataProvider")
     public void test(int i, String text) {
-        List<WebElement> webElements = driver.findElements(By.cssSelector(cssSelect));
-        // TODO Idea warning
+        List<WebElement> webElements = driver.findElements(By.cssSelector(CSS_SELECT));
         assertEquals(text, webElements.get(i).getText());
     }
 }
