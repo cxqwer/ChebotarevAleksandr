@@ -44,6 +44,8 @@ public class HomeworkTest {
         title = "Home Page";
         assertEquals(driver.getTitle(), title);
 
+        // TODO What is the reason of local variable "text" here ?
+        // TODO Assertions should be as simply as possible, your approach can be improved.
         //6 Assert that there are 4 items on the header section are displayed and they have proper texts
         String cssSelect = "[class='uui-navigation nav navbar-nav m-l8']";
         assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
@@ -57,6 +59,8 @@ public class HomeworkTest {
         text = "METALS & COLORS";
         assertTrue(properText.lastIndexOf(text) >= 0);
 
+        // TODO Same story about local variable.
+        // TODO This might be better with cycle.
         //7 Assert that there are 4 images on the Index Page and they are displayed
         cssSelect = "[class='icons-benefit icon-practise']";
         assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
@@ -72,6 +76,7 @@ public class HomeworkTest {
         List<WebElement> webElements = driver.findElements(By.cssSelector(cssSelect));
         text = "To include good practices\n" + "and ideas from successful\n" + "EPAM project";
         assertTrue(webElements.get(0).isDisplayed());
+        // TODO Take a look on IDEA warning
         assertTrue(webElements.get(0).getText().equals(text));
         text = "To be flexible and\n" + "customizable";
         assertTrue(webElements.get(1).isDisplayed());
