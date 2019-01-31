@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,7 +87,7 @@ public class IndexPage {
     }
 
     public void checkTitle(HomePageData title) {
-        Assert.assertEquals(driver.getTitle(), title.toString());
+        assertEquals(driver.getTitle(), title.toString());
     }
 
     public void login(Users user) {
