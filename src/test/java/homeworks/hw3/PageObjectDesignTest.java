@@ -1,12 +1,15 @@
 package homeworks.hw3;
 
 import base.SeleniumBase;
-import homeworks.hw3.enums.HomePageData;
+import homeworks.hw3.enums.IndexPageIconsData;
+import homeworks.hw3.enums.ItemsData;
 import homeworks.hw3.enums.Users;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import static homeworks.hw3.enums.HomePageData.*;
 
@@ -46,26 +49,20 @@ public class PageObjectDesignTest extends SeleniumBase {
 
         //6 Assert that there are 4 items on the header section are displayed and they have proper texts
         // TODO Can be simplified, create separate enum
-        HomePageData [] itemsText = {
-                FIRST_ITEMS_TEXT,
-                SECOND_ITEMS_TEXT,
-                THIRD_ITEMS_TEXT,
-                FOURTH_ITEMS_TEXT };
-        indexPage.chekItemsTexts(itemsText);
+        indexPage.chekItemsTexts(ItemsData.values());
 
         //7 Assert that there are 4 images on the Index Page and they are displayed
         indexPage.chekFourthImages();
 
         //8 Assert that there are 4 texts on the Index Page under icons and they have proper text
         // TODO
-        HomePageData [] textUnderIcons = {FIRST_TEXT_UNDER_ICONS, SECOND_TEXT_UNDER_ICONS, THIRD_TEXT_UNDER_ICONS, FOURTH_TEXT_UNDER_ICONS };
-        indexPage.chekTextUnderIcons(textUnderIcons);
+        indexPage.chekTextUnderIcons(IndexPageIconsData.values());
 
         //9 Assert a text of the main headers
         indexPage.chekTextOnMainHeaders(TITLE_ON_MAIN_HEADERS, TEXT_ON_MAIN_HEADERS);
 
         //10 Assert that there is the iframe in the center of page
-        indexPage.chekIframe();
+        indexPage.IframeIsDisplayed();
 
         //11 Switch to the iframe and check that there is Epam logo in the left top conner of iframe
         indexPage.chekIframeLogo();
@@ -80,9 +77,9 @@ public class PageObjectDesignTest extends SeleniumBase {
         indexPage.chekJdiGit(JDI_GITHUB_URL);
 
         //15 Assert that there is Left Section
-        indexPage.chekLeftSection();
+        indexPage.LeftSectionIsDisplayed();
 
         //16 Assert that there is Footer
-        indexPage.chekFooter();
+        indexPage.FooterIsDisplayed();
     }
 }

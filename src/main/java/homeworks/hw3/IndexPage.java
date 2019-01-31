@@ -1,6 +1,8 @@
 package homeworks.hw3;
 
 import homeworks.hw3.enums.HomePageData;
+import homeworks.hw3.enums.IndexPageIconsData;
+import homeworks.hw3.enums.ItemsData;
 import homeworks.hw3.enums.Users;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -72,56 +75,8 @@ public class IndexPage {
     private WebElement footer;
 
     // TODO Useless methods should be removed.
-    public String getMainTitle() {
-        return mainTitle.getText();
-    }
-
-    public String getJdiText() {
-        return jdiText.getText();
-    }
-
-    public String getTextCenter() {
-        return textCenter.getText();
-    }
-
-    public String getBenefitText(int index) {
-        return benefitText.get(index).getText();
-    }
-
-    public String getBlankAttribute() {
-        return blank.getAttribute("href");
-    }
-
-    public String getTitle() {
-        return driver.getTitle();
-    }
-
-    public boolean mainTitleIsDisplayed() {
-        return mainTitle.isDisplayed();
-    }
-
-    public boolean jdiTextIsDisplayed() {
-        return jdiText.isDisplayed();
-    }
-
-    public boolean iframeDisplayed() {
-        return iframe.isDisplayed();
-    }
-
-    public boolean textCenterIsDisplayed() {
-        return textCenter.isDisplayed();
-    }
-
-    public boolean footerIdDisplayed() {
-        return footer.isDisplayed();
-    }
-
-    public boolean leftSectionIsDisplayed() {
-        return leftSection.isDisplayed();
-    }
-
-    public boolean hasFourImages() {
-        return (iconBase.isDisplayed() && iconMulti.isDisplayed() && iconPractise.isDisplayed() && iconСustom.isDisplayed());
+    public IndexPage(WebDriver driver) {
+        this.driver = driver;
     }
 
     public void switchToDejaultContent() {
@@ -130,10 +85,6 @@ public class IndexPage {
 
     public void open(HomePageData url) {
         driver.get(url.toString());
-    }
-
-    public IndexPage(WebDriver driver) {
-        this.driver = driver;
     }
 
     public void checkTitle(HomePageData title) {
@@ -152,34 +103,36 @@ public class IndexPage {
     }
 
     public void chekFourthImages() {
-        assertTrue(hasFourImages());
+        assertTrue(iconBase.isDisplayed());
+        assertTrue(iconMulti.isDisplayed());
+        assertTrue(iconPractise.isDisplayed());
+        assertTrue(iconСustom.isDisplayed());
     }
 
-    public void chekItemsTexts(HomePageData[] itemsText) {
+    public void chekItemsTexts(ItemsData[] itemsText) {
         assertTrue(items.isDisplayed());
-        for (HomePageData item : itemsText) {
+        for (ItemsData item : itemsText) {
             assertTrue(items.getText().contains(item.toString()));
         }
     }
 
-    public void chekTextUnderIcons(HomePageData[] textUnderIcons) {
+    public void chekTextUnderIcons(IndexPageIconsData[] textUnderIcons) {
         // TODO
-        int i = 0;
-        for (HomePageData text : textUnderIcons) {
-            assertEquals(text.toString(), getBenefitText(i));
-            i++;
+        List<String> list = benefitText.stream().map(WebElement::getText).collect(Collectors.toList());
+        for (IndexPageIconsData indexPageIconsData : textUnderIcons) {
+            assertTrue(list.contains(indexPageIconsData.toString()));
         }
     }
 
     public void chekTextOnMainHeaders(HomePageData titleOnMainHeaders, HomePageData textOnMainHeaders) {
-        assertTrue(mainTitleIsDisplayed());
-        assertEquals(titleOnMainHeaders.toString(), getMainTitle());
-        assertTrue(jdiTextIsDisplayed());
-        assertEquals(textOnMainHeaders.toString(), getJdiText());
+        assertTrue(mainTitle.isDisplayed());
+        assertEquals(titleOnMainHeaders.toString(), mainTitle.getText());
+        assertTrue(jdiText.isDisplayed());
+        assertEquals(textOnMainHeaders.toString(), jdiText.getText());
     }
 
-    public void chekIframe() {
-        assertTrue(iframeDisplayed());
+    public void IframeIsDisplayed() {
+        assertTrue(iframe.isDisplayed());
     }
 
     public void chekIframeLogo() {
@@ -188,19 +141,19 @@ public class IndexPage {
     }
 
     public void chekTextOfSubHeader(HomePageData textOfTheSubHeader) {
-        assertTrue(textCenterIsDisplayed());
-        assertEquals(getTextCenter(), textOfTheSubHeader.toString());
+        assertTrue(textCenter.isDisplayed());
+        assertEquals(textCenter.getText(), textOfTheSubHeader.toString());
     }
 
     public void chekJdiGit(HomePageData jdiGithubUrl) {
-        assertEquals(getBlankAttribute(), jdiGithubUrl.toString());
+        assertEquals(blank.getAttribute("href"), jdiGithubUrl.toString());
     }
 
-    public void chekLeftSection() {
-        assertTrue(leftSectionIsDisplayed());
+    public void LeftSectionIsDisplayed() {
+        assertTrue(leftSection.isDisplayed());
     }
 
-    public void chekFooter() {
-        assertTrue(footerIdDisplayed());
+    public void FooterIsDisplayed() {
+        assertTrue(footer.isDisplayed());
     }
 }
