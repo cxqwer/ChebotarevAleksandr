@@ -10,6 +10,8 @@ import org.testng.asserts.SoftAssert;
 import java.util.List;
 
 import static java.lang.System.setProperty;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 
 public class HomeworkSoftTest {
@@ -17,9 +19,10 @@ public class HomeworkSoftTest {
     @Test
     public void tests() {
         setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
-        SoftAssert softAssert = new SoftAssert();
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
+
+        SoftAssert softAssert = new SoftAssert();
 
         //1 Open test site by URL
         String url = "https://epam.github.io/JDI/index.html";
@@ -50,60 +53,62 @@ public class HomeworkSoftTest {
         String cssSelect = "[class='uui-navigation nav navbar-nav m-l8']";
         softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
         String properText = driver.findElement(By.cssSelector(cssSelect)).getText();
-        String text = "HOME";
-        softAssert.assertTrue(properText.lastIndexOf(text) >= 0);
-        text = "CONTACT FORM";
-        softAssert.assertTrue(properText.lastIndexOf(text) >= 0);
-        text = "SERVICE";
-        softAssert.assertTrue(properText.lastIndexOf(text) >= 0);
-        text = "METALS & COLORS";
-        softAssert.assertTrue(properText.lastIndexOf(text) >= 0);
+        softAssert.assertTrue(properText.lastIndexOf("HOME") >= 0);
+        softAssert.assertTrue(properText.lastIndexOf("CONTACT FORM") >= 0);
+        softAssert.assertTrue(properText.lastIndexOf("SERVICE") >= 0);
+        softAssert.assertTrue(properText.lastIndexOf("METALS & COLORS") >= 0);
 
         //7 Assert that there are 4 images on the Index Page and they are displayed
-        cssSelect = "[class='icons-benefit icon-practise']";
-        softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
-        cssSelect = "[class='icons-benefit icon-custom']";
-        softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
-        cssSelect = "[class='icons-benefit icon-multi']";
-        softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
-        cssSelect = "[class='icons-benefit icon-base']";
-        softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
+        {
+            String[] cssSelects = {
+                    "[class='icons-benefit icon-practise']",
+                    "[class='icons-benefit icon-custom']",
+                    "[class='icons-benefit icon-multi']",
+                    "[class='icons-benefit icon-base']"
+            };
+            for (String sccSelect : cssSelects) {
+                softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
+
+            }
+        }
 
         //8 Assert that there are 4 texts on the Index Page under icons and they have proper text
-        cssSelect = "[class='benefit-txt']";
-        List<WebElement> webElements = driver.findElements(By.cssSelector(cssSelect));
-        text = "To include good practices\n" + "and ideas from successful\n" + "EPAM project";
-        softAssert.assertTrue(webElements.get(0).isDisplayed());
-        softAssert.assertTrue(webElements.get(0).getText().equals(text));
-        text = "To be flexible and\n" + "customizable";
-        softAssert.assertTrue(webElements.get(1).isDisplayed());
-        softAssert.assertTrue(webElements.get(1).getText().equals(text));
-        text = "To be multiplatform";
-        softAssert.assertTrue(webElements.get(2).isDisplayed());
-        softAssert.assertTrue(webElements.get(2).getText().equals(text));
-        text = "Already have good base\n" + "(about 20 internal and\n" + "some external projects),\n" + "wish to get more…";
-        softAssert.assertTrue(webElements.get(3).isDisplayed());
-        softAssert.assertTrue(webElements.get(3).getText().equals(text));
+        {
+            String[] texts = {
+                    "To include good practices\n" + "and ideas from successful\n" + "EPAM project",
+                    "To be flexible and\n" + "customizable",
+                    "To be multiplatform",
+                    "Already have good base\n" + "(about 20 internal and\n" + "some external projects),\n" + "wish to get more…"
+            };
+            List<WebElement> webElements = driver.findElements(By.cssSelector("[class='benefit-txt']"));
+            softAssert.assertEquals(webElements.size(), texts.length);
+            int i = 0;
+            for (WebElement element : webElements) {
+                softAssert.assertEquals(element.getText(), texts[i]);
+                softAssert.assertTrue(element.isDisplayed());
+                i++;
+            }
+        }
 
         //9 Assert a text of the main headers
-        cssSelect = "[name='main-title']";
-        softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
-        text = "EPAM FRAMEWORK WISHES…";
-        softAssert.assertEquals(driver.findElement(By.cssSelector(cssSelect)).getText(), text);
-        cssSelect = "[name='jdi-text']";
-        softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
-        text = "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT " +
-                "UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO " +
-                "LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN " +
-                "VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.";
-        softAssert.assertEquals(driver.findElement(By.cssSelector(cssSelect)).getText(), text);
+        {
+            cssSelect = "[name='main-title']";
+            softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
+            String text = "EPAM FRAMEWORK WISHES…";
+            softAssert.assertEquals(driver.findElement(By.cssSelector(cssSelect)).getText(), text);
+            cssSelect = "[name='jdi-text']";
+            softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
+            text = "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT " +
+                    "UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO " +
+                    "LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN " +
+                    "VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.";
+            softAssert.assertEquals(driver.findElement(By.cssSelector(cssSelect)).getText(), text);
+        }
 
         //10 Assert that there is the iframe in the center of page
-        cssSelect = "[id='iframe']";
-        softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
+        softAssert.assertTrue(driver.findElement(By.cssSelector("[id='iframe']")).isDisplayed());
 
         //11 Switch to the iframe and check that there is Epam logo in the left top conner of iframe
-        cssSelect = "[id='iframe']";
         driver.switchTo().frame("iframe");
         softAssert.assertTrue(driver.findElement(By.cssSelector("[id='epam_logo']")).isDisplayed());
 
@@ -116,8 +121,7 @@ public class HomeworkSoftTest {
         softAssert.assertEquals(driver.findElement(By.cssSelector(cssSelect)).getText(), "JDI GITHUB");
 
         //14 Assert that JDI GITHUB is a link and has a proper URL
-        cssSelect = "a[target='_blank']";
-        WebElement webElement = driver.findElement(By.cssSelector(cssSelect));
+        WebElement webElement = driver.findElement(By.cssSelector("a[target='_blank']"));
         softAssert.assertEquals(webElement.getAttribute("href"), "https://github.com/epam/JDI");
 
         //15 Assert that there is Left Section
@@ -126,12 +130,10 @@ public class HomeworkSoftTest {
         softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
 
         //16 Assert that there is Footer
-        cssSelect="[class='footer-bg']";
-        softAssert.assertTrue(driver.findElement(By.cssSelector(cssSelect)).isDisplayed());
+        softAssert.assertTrue(driver.findElement(By.cssSelector("[class='footer-bg']")).isDisplayed());
 
         //17 Close Browser
         driver.close();
-
         softAssert.assertAll();
     }
 }

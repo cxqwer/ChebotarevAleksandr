@@ -10,12 +10,15 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static java.lang.System.setProperty;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-// TODO What is the reason of inheritance here ?
-public class TestWithDataProvider extends SeleniumBase {
+public class TestWithDataProvider {
 
     private String cssSelect = "[class='benefit-txt']";
+    private WebDriver driver;
+    static String URL = "https://epam.github.io/JDI/index.html";
 
     @DataProvider(parallel = true)
     private Object[][] dataProvider() {
@@ -27,18 +30,23 @@ public class TestWithDataProvider extends SeleniumBase {
         };
     }
 
+    @BeforeSuite
+    private void  beforeSuite(){
+        setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to(URL);
+    }
+
+    @AfterSuite
+    public void afterSuite(){
+        driver.close();
+    }
+
     @Test(dataProvider = "dataProvider")
     public void test(int i, String text) {
-        // TODO This should be in the other place.
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        String url = "https://epam.github.io/JDI/index.html";
-        driver.navigate().to(url);
-
         List<WebElement> webElements = driver.findElements(By.cssSelector(cssSelect));
-        assertTrue(webElements.get(i).isDisplayed());
         // TODO Idea warning
-        assertTrue(webElements.get(i).getText().equals(text));
-        driver.close();
+        assertEquals(text, webElements.get(i).getText());
     }
 }

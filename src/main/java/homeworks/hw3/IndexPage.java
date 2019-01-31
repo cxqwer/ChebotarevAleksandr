@@ -10,6 +10,9 @@ import org.testng.Assert;
 
 import java.util.List;
 
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
+
 public class IndexPage {
 
     private WebDriver driver;
@@ -68,11 +71,6 @@ public class IndexPage {
     @FindBy(css = "[class='footer-bg']")
     private WebElement footer;
 
-
-    public String getUserName() {
-        return userName.getText();
-    }
-
     public String getMainTitle() {
         return mainTitle.getText();
     }
@@ -97,10 +95,6 @@ public class IndexPage {
         return driver.getTitle();
     }
 
-    public boolean ithemHasText(String text) {
-        return items.getText().contains(text);
-    }
-
     public boolean mainTitleIsDisplayed() {
         return mainTitle.isDisplayed();
     }
@@ -121,28 +115,12 @@ public class IndexPage {
         return footer.isDisplayed();
     }
 
-    public boolean checkEpamLogoOfIframe() {
-        driver.switchTo().frame(iframe);
-        return driver.findElement(By.cssSelector("[id='epam_logo']")).isDisplayed();
-    }
-
     public boolean leftSectionIsDisplayed() {
         return leftSection.isDisplayed();
     }
 
-    public boolean hasItems() {
-        return items.isDisplayed();
-    }
-
     public boolean hasFourImages() {
         return (iconBase.isDisplayed() && iconMulti.isDisplayed() && iconPractise.isDisplayed() && iconСustom.isDisplayed());
-    }
-
-    public boolean hasFourTextsOnderIcons() {
-        for (WebElement element : benefitText) {
-            if (!element.isDisplayed()) return false;
-        }
-        return true;
     }
 
     public void switchToDejaultContent() {
@@ -157,15 +135,8 @@ public class IndexPage {
         this.driver = driver;
     }
 
-    public void checkTitle(String title) {
-        Assert.assertEquals(driver.getTitle(), title);
-    }
-
-    public void checkNavigationItems(List<String> strings) {
-        for (String expected : strings) {
-            Assert.assertTrue(items.getText().contains(expected),
-                    String.format("%s", expected));
-        }
+    public void checkTitle(HomePageData title) {
+        Assert.assertEquals(driver.getTitle(), title.toString());
     }
 
     public void login(Users user) {
@@ -173,5 +144,61 @@ public class IndexPage {
         userField.sendKeys(user.login);
         passwordField.sendKeys(user.password);
         submitButton.click();
+    }
+
+    public void checkUserIsLoggined(String name) {
+        assertEquals(userName.getText(), name);
+    }
+
+    public void chekFourthImages() {
+        assertTrue(hasFourImages());
+    }
+
+    public void chekItemsTexts(HomePageData[] itemsText) {
+        assertTrue(items.isDisplayed());
+        for(HomePageData item: itemsText){
+            assertTrue(items.getText().contains(item.toString()));
+        }
+    }
+
+    public void chekTextUnderIcons(HomePageData[] textUnderIcons) {
+        int i = 0;
+        for (HomePageData text:textUnderIcons){
+            assertEquals(text.toString(), getBenefitText(i));
+            i++;
+        }
+    }
+
+    public void chekTextOnMainHeaders(HomePageData titleOnMainHeaders, HomePageData textOnMainHeaders) {
+        assertTrue(mainTitleIsDisplayed());
+        assertEquals(titleOnMainHeaders.toString(), getMainTitle());
+        assertTrue(jdiTextIsDisplayed());
+        assertEquals(textOnMainHeaders.toString(), getJdiText());
+    }
+
+    public void chekIframe() {
+        assertTrue(iframeDisplayed());
+    }
+
+    public void chekIframeLogo() {
+        driver.switchTo().frame(iframe);
+        assertTrue(driver.findElement(By.cssSelector("[id='epam_logo']")).isDisplayed());
+    }
+
+    public void chekTextOfSubHeader(HomePageData textOfTheSubHeader) {
+        assertTrue(textCenterIsDisplayed());
+        assertEquals(getTextCenter(), textOfTheSubHeader.toString());
+    }
+
+    public void chekJdiGit(HomePageData jdiGithubUrl) {
+        assertEquals(getBlankAttribute(), jdiGithubUrl.toString());
+    }
+
+    public void chekLeftSection() {
+        assertTrue(leftSectionIsDisplayed());
+    }
+
+    public void chekFooter() {
+        assertTrue(footerIdDisplayed());
     }
 }
