@@ -1,9 +1,12 @@
 package homeworks.hw3;
 
+import homeworks.hw3.enums.HomePageData;
+import homeworks.hw3.enums.Users;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 import java.util.List;
 
@@ -53,24 +56,19 @@ public class IndexPage {
     @FindBy(css = "[id='iframe']")
     private WebElement iframe;
 
-    @FindBy (css = "[class='text-center']")
+    @FindBy(css = "[class='text-center']")
     private WebElement textCenter;
 
-    @FindBy (css = "a[target='_blank']")
+    @FindBy(css = "a[target='_blank']")
     private WebElement blank;
 
-    @FindBy (css = ".uui-side-bar.mCustomScrollbar._mCS_1.mCS_no_scrollbar")
+    @FindBy(css = ".uui-side-bar.mCustomScrollbar._mCS_1.mCS_no_scrollbar")
     private WebElement leftSection;
 
-    @FindBy (css = "[class='footer-bg']")
+    @FindBy(css = "[class='footer-bg']")
     private WebElement footer;
 
-    public void login(String name, String password) {
-        loginIcon.click();
-        userField.sendKeys(name);
-        passwordField.sendKeys(password);
-        submitButton.click();
-    }
+
     public String getUserName() {
         return userName.getText();
     }
@@ -83,8 +81,7 @@ public class IndexPage {
         return jdiText.getText();
     }
 
-    public String getTextCenter()
-    {
+    public String getTextCenter() {
         return textCenter.getText();
     }
 
@@ -92,17 +89,16 @@ public class IndexPage {
         return benefitText.get(index).getText();
     }
 
-    public String getBlankAttribute(){
+    public String getBlankAttribute() {
         return blank.getAttribute("href");
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return driver.getTitle();
     }
 
     public boolean ithemHasText(String text) {
-        int i = items.getText().indexOf(text);
-        return i>=0;
+        return items.getText().contains(text);
     }
 
     public boolean mainTitleIsDisplayed() {
@@ -121,21 +117,21 @@ public class IndexPage {
         return textCenter.isDisplayed();
     }
 
-    public boolean footerIdDisplayed(){
-        return  footer.isDisplayed();
+    public boolean footerIdDisplayed() {
+        return footer.isDisplayed();
     }
 
-    public boolean checkEpamLogoOfIframe(){
+    public boolean checkEpamLogoOfIframe() {
         driver.switchTo().frame(iframe);
         return driver.findElement(By.cssSelector("[id='epam_logo']")).isDisplayed();
     }
 
-    public boolean leftSectionIsDisplayed(){
+    public boolean leftSectionIsDisplayed() {
         return leftSection.isDisplayed();
     }
 
     public boolean hasItems() {
-       return items.isDisplayed();
+        return items.isDisplayed();
     }
 
     public boolean hasFourImages() {
@@ -149,15 +145,33 @@ public class IndexPage {
         return true;
     }
 
-    public void switchToDejaultContent(){
+    public void switchToDejaultContent() {
         driver.switchTo().defaultContent();
     }
 
-    public void open(String url) {
-        driver.get(url);
+    public void open(HomePageData url) {
+        driver.get(url.toString());
     }
 
     public IndexPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void checkTitle(String title) {
+        Assert.assertEquals(driver.getTitle(), title);
+    }
+
+    public void checkNavigationItems(List<String> strings) {
+        for (String expected : strings) {
+            Assert.assertTrue(items.getText().contains(expected),
+                    String.format("%s", expected));
+        }
+    }
+
+    public void login(Users user) {
+        loginIcon.click();
+        userField.sendKeys(user.login);
+        passwordField.sendKeys(user.password);
+        submitButton.click();
     }
 }

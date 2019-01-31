@@ -1,21 +1,21 @@
 package homeworks.hw3;
 
 import base.SeleniumBase;
-import org.openqa.selenium.By;
+import homeworks.hw3.enums.HomePageData;
+import homeworks.hw3.enums.Users;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
-import java.util.List;
-
-import static java.lang.System.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class PageObjectDesignTest extends SeleniumBase {
+
+    public static final String INDEX_HTML_URL = "https://epam.github.io/JDI/index.html";
+    public static final String HOME_PAGE_TITLE = "Home Page";
 
     private WebDriver driver;
     private IndexPage indexPage;
@@ -25,7 +25,7 @@ public class PageObjectDesignTest extends SeleniumBase {
     public void beforeMethod() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        indexPage = PageFactory.initElements(driver, homeworks.hw3.IndexPage.class);
+        indexPage = PageFactory.initElements(driver, IndexPage.class);
         softAssert = new SoftAssert();
     }
 
@@ -38,13 +38,13 @@ public class PageObjectDesignTest extends SeleniumBase {
     @Test
     public void tests() {
         //1 Open test site by URL
-        indexPage.open("https://epam.github.io/JDI/index.html");
+        indexPage.open(HomePageData.HOME_PAGE_TITLE);
 
         //2 Assert Browser title
-        softAssert.assertEquals(indexPage.getTitle(), "Home Page");
+        indexPage.checkTitle(HOME_PAGE_TITLE);
 
         //3 Perform login
-        indexPage.login("epam", "1234");
+        indexPage.login(Users.PETER);
 
         //4 Assert User name in the left-top side of screen that user is loggined
         softAssert.assertEquals(indexPage.getUserName(), "PITER CHAILOVSKII");
@@ -53,11 +53,7 @@ public class PageObjectDesignTest extends SeleniumBase {
         softAssert.assertEquals(indexPage.getTitle(), "Home Page");
 
         //6 Assert that there are 4 items on the header section are displayed and they have proper texts
-        softAssert.assertTrue(indexPage.hasItems());
-        softAssert.assertTrue(indexPage.ithemHasText("HOME"));
-        softAssert.assertTrue(indexPage.ithemHasText("CONTACT FORM"));
-        softAssert.assertTrue(indexPage.ithemHasText("SERVICE"));
-        softAssert.assertTrue(indexPage.ithemHasText("METALS & COLORS"));
+        indexPage.checkNavigationItems();
 
         //7 Assert that there are 4 images on the Index Page and they are displayed
         softAssert.assertTrue(indexPage.hasFourImages());

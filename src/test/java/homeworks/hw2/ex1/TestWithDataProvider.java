@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
+// TODO What is the reason of inheritance here ?
 public class TestWithDataProvider extends SeleniumBase {
 
     private String cssSelect = "[class='benefit-txt']";
@@ -28,6 +29,7 @@ public class TestWithDataProvider extends SeleniumBase {
 
     @Test(dataProvider = "dataProvider")
     public void test(int i, String text) {
+        // TODO This should be in the other place.
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         String url = "https://epam.github.io/JDI/index.html";
@@ -35,6 +37,7 @@ public class TestWithDataProvider extends SeleniumBase {
 
         List<WebElement> webElements = driver.findElements(By.cssSelector(cssSelect));
         assertTrue(webElements.get(i).isDisplayed());
+        // TODO Idea warning
         assertTrue(webElements.get(i).getText().equals(text));
         driver.close();
     }
