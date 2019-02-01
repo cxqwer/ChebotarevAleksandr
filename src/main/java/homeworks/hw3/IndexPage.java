@@ -73,12 +73,11 @@ public class IndexPage {
     @FindBy(css = "[class='footer-bg']")
     private WebElement footer;
 
-    // TODO Useless methods should be removed.
     public IndexPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void switchToDejaultContent() {
+    public void switchToDefaultContent() {
         driver.switchTo().defaultContent();
     }
 
@@ -116,7 +115,6 @@ public class IndexPage {
     }
 
     public void chekTextUnderIcons(IndexPageIconsData[] textUnderIcons) {
-        // TODO
         List<String> list = benefitText.stream().map(WebElement::getText).collect(Collectors.toList());
         for (IndexPageIconsData indexPageIconsData : textUnderIcons) {
             assertTrue(list.contains(indexPageIconsData.toString()));
