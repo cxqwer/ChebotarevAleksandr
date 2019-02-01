@@ -9,7 +9,6 @@
                 <include name="Smoke"/>
             </run>
         </groups>
-        <!--TODO This will be better with package-->
         <packages>
             <package name="homeworks.hw2.ex2"/>
         </packages>

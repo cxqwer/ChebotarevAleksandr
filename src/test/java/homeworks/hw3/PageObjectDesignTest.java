@@ -48,14 +48,12 @@ public class PageObjectDesignTest extends SeleniumBase {
         indexPage.checkTitle(HOME_PAGE_TITLE);
 
         //6 Assert that there are 4 items on the header section are displayed and they have proper texts
-        // TODO Can be simplified, create separate enum
         indexPage.chekItemsTexts(ItemsData.values());
 
         //7 Assert that there are 4 images on the Index Page and they are displayed
         indexPage.chekFourthImages();
 
         //8 Assert that there are 4 texts on the Index Page under icons and they have proper text
-        // TODO
         indexPage.chekTextUnderIcons(IndexPageIconsData.values());
 
         //9 Assert a text of the main headers
@@ -68,7 +66,7 @@ public class PageObjectDesignTest extends SeleniumBase {
         indexPage.chekIframeLogo();
 
         //12 Switch to original window back
-        indexPage.switchToDejaultContent();
+        indexPage.switchToDefaultContent();
 
         //13 Assert a text of the sub header
         indexPage.chekTextOfSubHeader(TEXT_OF_THE_SUB_HEADER);

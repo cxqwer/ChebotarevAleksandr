@@ -13,7 +13,6 @@ import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-// TODO Pay attention on useless imports.. (ctrl + alt + o)
 
 public class HomeworkTest {
 
@@ -47,7 +46,6 @@ public class HomeworkTest {
         //5 Assert Browser title
         assertEquals(driver.getTitle(), title);
 
-        // TODO
         //6 Assert that there are 4 items on the header section are displayed and they have proper texts
         WebElement navBar = driver.findElement(By.cssSelector("[class='uui-navigation nav navbar-nav m-l8']"));
         assertTrue(navBar.isDisplayed());
@@ -56,7 +54,6 @@ public class HomeworkTest {
         for (String itemsText : itemsTexts) {
             assertTrue(actualMenuItems.contains(itemsText));
         }
-        // !TODO
 
         //7 Assert that there are 4 images on the Index Page and they are displayed
         String[] cssSelectsIcons = {
@@ -66,7 +63,6 @@ public class HomeworkTest {
                 "[class='icons-benefit icon-base']"
         };
         for (String select : cssSelectsIcons) {
-            // TODO
             assertTrue(driver.findElement(By.cssSelector(select)).isDisplayed());
         }
 
@@ -80,12 +76,10 @@ public class HomeworkTest {
         );
         List<WebElement> webElements = driver.findElements(By.cssSelector("[class='benefit-txt']"));
         assertEquals(webElements.size(), benefitTxt.size());
-        // TODO
         for (WebElement element : webElements) {
             assertTrue(benefitTxt.contains(element.getText()));
             assertTrue(element.isDisplayed());
         }
-        // !TODO
 
         //9 Assert a text of the main headers
         WebElement mainTitle = driver.findElement(By.cssSelector("[name='main-title']"));
