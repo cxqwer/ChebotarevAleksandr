@@ -5,6 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 import homeworks.hw3.enums.HomePageData;
 import homeworks.hw3.enums.Users;
 import homeworks.hw4.enums.ServiceSubcategorysData;
+import homeworks.hw4.enums.SliderData;
+import homeworks.hw4.enums.SupportData;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
@@ -88,7 +90,14 @@ public class SelenideServicePage {
         serviceOnHeader.click();
     }
 
-    public void openHeaderDifferentElements() {
+    public void openHeaderDifferentElements(SupportData title) {
         dropDownService.$("li:nth-child(7)").click();
+        assertEquals(getWebDriver().getTitle(), title.toString());
+    }
+
+    public void openHeaderDates(SliderData title) {
+        serviceOnHeader.click();
+        dropDownService.$("li:nth-child(2)").click();
+        assertEquals(getWebDriver().getTitle(), title.toString());
     }
 }

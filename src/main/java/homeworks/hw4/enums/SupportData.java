@@ -1,6 +1,8 @@
 package homeworks.hw4.enums;
 
 public enum SupportData {
+    TITLE("Different Elements"),
+
     FIRST_CHECKBOXES("Water"),
     SECOND_CHECKBOXES("Earth"),
     THIRD_CHECKBOXES("Wind"),
