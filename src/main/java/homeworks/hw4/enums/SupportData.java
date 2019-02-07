@@ -1,8 +1,12 @@
 package homeworks.hw4.enums;
 
+// TODO What kind of data ?
+// TODO I think it will be better to separate this enum by some criteria...
 public enum SupportData {
     TITLE("Different Elements"),
 
+    // TODO Ho my, what is the reason of this naming style ?
+    // TODO Why dont you name it like WATER, FIRE and so on ?
     FIRST_CHECKBOXES("Water"),
     SECOND_CHECKBOXES("Earth"),
     THIRD_CHECKBOXES("Wind"),

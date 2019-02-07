@@ -17,6 +17,7 @@ import static com.codeborne.selenide.Selenide.page;
 import static homeworks.hw3.enums.HomePageData.HOME_PAGE_TITLE;
 import static homeworks.hw3.enums.HomePageData.INDEX_HTML_URL;
 
+// TODO Browser should open in the full screen mode.
 public class ServicePageTest extends SelenideBase {
 
     private SelenideServicePage servicePage;
@@ -52,6 +53,7 @@ public class ServicePageTest extends SelenideBase {
         servicePage.checkUserIsLoggined(Users.PITER);
 
         //5 Click on "Service" subcategory in the header and check that drop down contains options
+        // TODO Be careful with grammar, I'm sick and tired to fix it
         servicePage.chekHeaderSecvice(ServiceSubcategorysData.values());
 
         //6 Click on Service subcategory in the left section and check that drop down contains options
