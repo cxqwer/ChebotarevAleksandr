@@ -11,6 +11,7 @@ import static org.testng.Assert.assertTrue;
 
 public class SelenideSliderPage {
 
+    // TODO It is completely prohibited to create locators in this way !
     @FindBy(css = "div.uui-main-container.page-inside div.main-content div form div:nth-child(4) div:nth-child(2)  div a:nth-child(1)")
     private SelenideElement leftSlider;
 
@@ -25,6 +26,9 @@ public class SelenideSliderPage {
 
     //Cast, because  slider has bugs!
     public void moveSlidersBoundryPosition(int left, int right) {
+        // TODO You can't use such a this 'magic number' in your algorithm
+        // TODO Take a look on Math.round
+        // TODO Peace of hint: you can organise your algorithm around current values of slider, it will be easier.
         double step = slider.getSize().width * 0.01013;
         if (left > 0 && right > 0) {
             moveRightSlider((int) (step * right));

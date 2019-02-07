@@ -10,7 +10,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static org.testng.Assert.*;
 
+// TODO Code conventions
 public class SelenideSupportPage {
+    // TODO This locator can be improved, most all of them frankly speaking...
     @FindBy(css = "div.uui-main-container.page-inside div.main-content div:nth-child(2)")
     private SelenideElement checkBoxes;
 
@@ -38,6 +40,11 @@ public class SelenideSupportPage {
     @FindBy(css = "div.uui-main-container.page-inside div.main-content div.colors select")
     private SelenideElement colorsSelect;
 
+    // TODO In general, You can parametrised the method that working with log,
+    // TODO create simple locator that can provide you with the whole log string...
+
+    // TODO Take a look on ElementsCollection:find(...)
+
     public void chekAllElements() {
         List<SelenideElement> listChekBoxes = checkBoxes.$$("label");
         assertEquals(listChekBoxes.size(), 4);
@@ -54,6 +61,7 @@ public class SelenideSupportPage {
         button.shouldHave(visible);
     }
 
+    // TODO Grammar
     public void chekRightSection() {
         rightSection.shouldHave(visible);
     }
@@ -62,6 +70,9 @@ public class SelenideSupportPage {
         lefttSection.shouldHave(visible);
     }
 
+    // TODO What kind of 'boxes' you are going to select ?
+    // TODO You have to understand that this is an ACTION,
+    // TODO it should be referenced on domain, on business function...
     public void selectBoxes(SupportData[] selectedCheckboxes) {
         for (SupportData selectedChexbox : selectedCheckboxes) {
             checkBoxes.$(byText(selectedChexbox.toString())).click();
