@@ -1,10 +1,8 @@
 package homeworks.hw4;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import homeworks.hw4.enums.SliderData;
 import org.openqa.selenium.support.FindBy;
-
-import java.util.List;
 
 import static com.codeborne.selenide.Selenide.actions;
 import static org.testng.Assert.assertTrue;
@@ -12,11 +10,9 @@ import static org.testng.Assert.assertTrue;
 public class SelenideSliderPage {
 
     // TODO It is completely prohibited to create locators in this way !
-    @FindBy(css = "div.uui-main-container.page-inside div.main-content div form div:nth-child(4) div:nth-child(2)  div a:nth-child(1)")
-    private SelenideElement leftSlider;
 
-    @FindBy(css = "div.uui-main-container.page-inside div.main-content div form div:nth-child(4) div:nth-child(2)  div a:nth-child(3)")
-    private SelenideElement rightSlider;
+    @FindBy(css = "[class='ui-slider-handle ui-state-default ui-corner-all']")
+    private ElementsCollection sliders;
 
     @FindBy(css = "[class='panel-body-list logs']")
     private SelenideElement logs;
@@ -24,53 +20,52 @@ public class SelenideSliderPage {
     @FindBy(css = "[class='uui-slider blue range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all']")
     private SelenideElement slider;
 
-    //Cast, because  slider has bugs!
+    @FindBy(css = "[class='uui-slider blue range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all'] > a:nth-child(3)")
+    private SelenideElement rightSlider;
+
+    @FindBy(css = "[class='uui-slider blue range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all'] > a:nth-child(1)")
+    private SelenideElement leftSlider;
+
+
+    // TODO You can't use such a this 'magic number' in your algorithm
+    // TODO Take a look on Math.round
+    // TODO Peace of hint: you can organise your algorithm around current values of slider, it will be easier.
+
+
     public void moveSlidersBoundryPosition(int left, int right) {
-        // TODO You can't use such a this 'magic number' in your algorithm
-        // TODO Take a look on Math.round
-        // TODO Peace of hint: you can organise your algorithm around current values of slider, it will be easier.
-        double step = slider.getSize().width * 0.01013;
-        if (left > 0 && right > 0) {
-            moveRightSlider((int) (step * right));
-            moveLeftSlider((int) (step * left));
-        } else if (left < 0 && right < 0) {
-            moveLeftSlider((int) (step * left));
-            moveRightSlider((int) (step * right));
+        assertCorrectValues(left, right);
+        actions().clickAndHold(leftSlider).moveByOffset(-1000, 0).release().build().perform();
+        actions().clickAndHold(rightSlider).moveByOffset(-1000, 0).release().build().perform();
+        int step = Math.round(slider.getSize().width / 100);
+        int actualRightValue = Integer.valueOf(leftSlider.getText());
+        int actualLeftValue = Integer.valueOf(leftSlider.getText());
+        if (right == 100) {
+            actions().clickAndHold(rightSlider).moveByOffset(1000, 0).release().build().perform();
         } else {
-            if (left != 0) {
-                moveLeftSlider((int) (step * left));
+            while (actualRightValue != right) {
+                actions().clickAndHold(rightSlider).moveByOffset(step, 0).release().build().perform();
+                actualRightValue = Integer.valueOf(rightSlider.getText());
             }
-            if (right != 0) {
-                moveRightSlider((int) (step * right));
+        }
+        if (left == 100) {
+            actions().clickAndHold(leftSlider).moveByOffset(1000, 0).release().build().perform();
+        } else {
+            while (actualLeftValue != left) {
+                actions().clickAndHold(leftSlider).moveByOffset(step, 0).release().build().perform();
+                actualLeftValue = Integer.valueOf(leftSlider.getText());
             }
         }
     }
 
-    public void moveLeftSlider(int set) {
-        actions().clickAndHold(leftSlider).moveByOffset(set, 0).release().build().perform();
+    public void checkFromAndToInLogs(int left, int right) {
+        assertCorrectValues(left, right);
+        assertTrue(logs.getText().contains("(To):" + right));
+        assertTrue(logs.getText().contains("(From):" + left));
     }
 
-    public void moveRightSlider(int set) {
-        actions().clickAndHold(rightSlider).moveByOffset(set, 0).release().build().perform();
-    }
-
-    public void chekFromAndToInLogs(SliderData from, SliderData to) {
-        List<String> logMessages = logs.$$("li").texts();
-        String actualFrom = null;
-        String actualTo = null;
-        for (String massage : logMessages) {
-            if (massage.contains("(To)")) {
-                actualTo = massage.substring(9);
-                break;
-            }
+    public void assertCorrectValues(int right, int left) {
+        if (left < 0 || left > 100 || right < 0 || right > 100) {
+            throw new IllegalArgumentException("The range of the sliders should be in [0, 100]");
         }
-        for (String massage : logMessages) {
-            if (massage.contains("(From)")) {
-                actualFrom = massage.substring(9);
-                break;
-            }
-        }
-        assertTrue(actualFrom.contains(from.toString()));
-        assertTrue(actualTo.contains(to.toString()));
     }
 }

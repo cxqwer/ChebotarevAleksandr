@@ -4,9 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import homeworks.hw3.enums.HomePageData;
 import homeworks.hw3.enums.Users;
-import homeworks.hw4.enums.ServiceSubcategorysData;
-import homeworks.hw4.enums.SliderData;
-import homeworks.hw4.enums.SupportData;
+import homeworks.hw4.enums.ServiceSubcategoryData;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
@@ -62,40 +60,40 @@ public class SelenideServicePage {
         submitButton.click();
     }
 
-    public void checkUserIsLoggined(Users user) {
+    public void checkUserIsLogged(Users user) {
         userName.shouldHave(visible, text(user.name));
     }
 
-    public void chekHeaderSecvice(ServiceSubcategorysData[] values) {
+    public void checkHeaderService(ServiceSubcategoryData[] values) {
         serviceOnHeader.shouldHave(visible);
         serviceOnHeader.click();
         dropDownService.shouldHave(visible);
         List<String> list = dropDownService.$$("li").stream().map(SelenideElement::getText).collect(Collectors.toList());
         assertEquals(values.length, list.size());
-        for (ServiceSubcategorysData value : values) {
+        for (ServiceSubcategoryData value : values) {
             assertTrue(list.contains(value.toString().toUpperCase()));
         }
         serviceOnHeader.click();
     }
 
-    public void chekLeftService(ServiceSubcategorysData[] values) {
+    public void checkLeftService(ServiceSubcategoryData[] values) {
         serviceOnLeftSection.shouldHave(visible);
         serviceOnLeftSection.click();
         dropDownServiceLeft.shouldHave(visible);
         List<String> list = dropDownServiceLeft.$$("li").stream().map(SelenideElement::getText).collect(Collectors.toList());
         assertEquals(values.length, list.size());
-        for (ServiceSubcategorysData value : values) {
+        for (ServiceSubcategoryData value : values) {
             assertTrue(list.contains(value.toString()));
         }
         serviceOnHeader.click();
     }
 
-    public void openHeaderDifferentElements(SupportData title) {
+    public void openHeaderDifferentElements(HomePageData title) {
         dropDownService.$("li:nth-child(7)").click();
         assertEquals(getWebDriver().getTitle(), title.toString());
     }
 
-    public void openHeaderDates(SliderData title) {
+    public void openHeaderDates(HomePageData title) {
         serviceOnHeader.click();
         dropDownService.$("li:nth-child(2)").click();
         assertEquals(getWebDriver().getTitle(), title.toString());

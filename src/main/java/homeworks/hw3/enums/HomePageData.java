@@ -3,6 +3,9 @@ package homeworks.hw3.enums;
 public enum HomePageData {
     INDEX_HTML_URL("https://epam.github.io/JDI/index.html"),
     HOME_PAGE_TITLE("Home Page"),
+    DIFFERENT_ELEMENTS_PAGE_TITLE ("Different Elements"),
+    DATES_TITLE("Dates"),
+
     TITLE_ON_MAIN_HEADERS("EPAM FRAMEWORK WISHES…"),
     TEXT_ON_MAIN_HEADERS(
             "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT " +

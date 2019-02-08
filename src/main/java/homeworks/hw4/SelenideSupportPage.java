@@ -1,43 +1,46 @@
 package homeworks.hw4;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import homeworks.hw4.enums.SupportData;
+import homeworks.hw4.enums.Checkboxes;
+import homeworks.hw4.enums.DropdownElements;
+import homeworks.hw4.enums.Radios;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 // TODO Code conventions
 public class SelenideSupportPage {
     // TODO This locator can be improved, most all of them frankly speaking...
-    @FindBy(css = "div.uui-main-container.page-inside div.main-content div:nth-child(2)")
-    private SelenideElement checkBoxes;
+    @FindBy(css = "[class='label-checkbox']")
+    private ElementsCollection checkboxes;
 
-    @FindBy(css = "div.uui-main-container.page-inside div.main-content div:nth-child(3)")
-    private SelenideElement radios;
+    @FindBy(css = "[class='label-radio']")
+    private ElementsCollection radios;
 
     @FindBy(css = "[class='colors']")
-    private SelenideElement dropdown;
+    private SelenideElement dropDown;
 
     @FindBy(css = "[name='Default Button']")
     private SelenideElement defaultButton;
 
-    @FindBy(css = "div.uui-main-container.page-inside div.main-content div > input")
+    @FindBy(css = "[value='Button']")
     private SelenideElement button;
 
     @FindBy(css = "[class='uui-side-bar right-fix-panel mCustomScrollbar _mCS_2 mCS_no_scrollbar']")
     private SelenideElement rightSection;
 
     @FindBy(css = "[class='uui-side-bar mCustomScrollbar _mCS_1 mCS_no_scrollbar']")
-    private SelenideElement lefttSection;
+    private SelenideElement leftSection;
 
     @FindBy(css = "[class='panel-body-list logs']")
     private SelenideElement logs;
 
-    @FindBy(css = "div.uui-main-container.page-inside div.main-content div.colors select")
+    @FindBy(css = "[class='colors']")
     private SelenideElement colorsSelect;
 
     // TODO In general, You can parametrised the method that working with log,
@@ -45,97 +48,54 @@ public class SelenideSupportPage {
 
     // TODO Take a look on ElementsCollection:find(...)
 
-    public void chekAllElements() {
-        List<SelenideElement> listChekBoxes = checkBoxes.$$("label");
-        assertEquals(listChekBoxes.size(), 4);
-        for (SelenideElement element : listChekBoxes) {
+    public void checkNumberСheckboxesAndRadio(int numberCheckboxes, int numberRadios) {
+        assertEquals(checkboxes.size(), numberCheckboxes);
+        for (SelenideElement element : checkboxes) {
             element.shouldHave(visible);
         }
-        List<SelenideElement> listRadios = checkBoxes.$$("label");
-        assertEquals(listChekBoxes.size(), 4);
-        for (SelenideElement element : listRadios) {
+        assertEquals(radios.size(), numberRadios);
+        for (SelenideElement element : radios) {
             element.shouldHave(visible);
         }
-        dropdown.shouldHave(visible);
+        dropDown.shouldHave(visible);
         defaultButton.shouldHave(visible);
         button.shouldHave(visible);
     }
 
     // TODO Grammar
-    public void chekRightSection() {
+    public void checkRightSection() {
         rightSection.shouldHave(visible);
     }
 
-    public void chekLeftSection() {
-        lefttSection.shouldHave(visible);
+    public void checkLeftSection() {
+        leftSection.shouldHave(visible);
     }
 
     // TODO What kind of 'boxes' you are going to select ?
     // TODO You have to understand that this is an ACTION,
     // TODO it should be referenced on domain, on business function...
-    public void selectBoxes(SupportData[] selectedCheckboxes) {
-        for (SupportData selectedChexbox : selectedCheckboxes) {
-            checkBoxes.$(byText(selectedChexbox.toString())).click();
-        }
+    public void selectCheckbox(Checkboxes selectedCheckbox) {
+        checkboxes.findBy(text(selectedCheckbox.toString())).click();
     }
 
-    public void chekChekboxesTrueInLog(SupportData[] selectedCheckboxes) {
-        for (SupportData selectedChekbox: selectedCheckboxes){
-            assertTrue(checkboxInLog(selectedChekbox.toString()));
-        }
+    public void checkCheckboxInLog(Checkboxes selectedCheckbox, boolean isOn) {
+        assertTrue(logs.getText().contains(selectedCheckbox.toString() + ": condition changed to " + isOn));
     }
 
-    public boolean checkboxInLog(String ratioName) {
-        List<String> logMessages = logs.$$("li").texts();
-        for (String message : logMessages) {
-            if (message.contains(ratioName)){
-                return message.contains("true");
-            }
-        }
-        return false;
+    public void selectRadio(Radios radio) {
+        radios.findBy(text(radio.toString())).click();
     }
 
-    public String ratioInLog() {
-        List<String> logMessages = logs.$$("li").texts();
-        for (String message : logMessages) {
-            if (message.contains("metal")){
-                return message.substring(message.lastIndexOf(" ")+1);
-            }
-        }
-        return null;
+    public void checkRadioInLog(Radios selectedRadio) {
+        assertTrue(logs.getText().contains("metal: value changed to " + selectedRadio.toString()));
     }
 
-    public void selectRadio(SupportData firstRadio) {
-        radios.$(byText(firstRadio.toString())).click();
-    }
-
-    public void chekRadioLogValue(SupportData radio) {
-        assertEquals(ratioInLog(), radio.toString());
-    }
-
-    public void selectDropdown(SupportData fourthDropdown) {
+    public void selectDropdown(DropdownElements selectedColor) {
         colorsSelect.click();
-        colorsSelect.$(byText(fourthDropdown.toString())).click();
+        colorsSelect.$(byText(selectedColor.toString())).click();
     }
 
-    public String colorInLog(){
-        List<String> logMessages = logs.$$("li").texts();
-        for (String message : logMessages) {
-            if (message.contains("Colors")){
-                return message.substring(message.lastIndexOf(" ")+1);
-            }
-        }
-        return null;
+    public void checkSelectedColor(DropdownElements selectedElement) {
+        assertTrue(logs.getText().contains("Colors: value changed to " + selectedElement.toString()));
     }
-
-    public void chekSelectedColor(SupportData fourthDropdown) {
-        assertEquals(colorInLog(), fourthDropdown.toString());
-    }
-
-    public void chekChekboxesFalseInLog(SupportData[] selectedCheckboxes) {
-        for (SupportData selectedChekbox: selectedCheckboxes){
-            assertFalse(checkboxInLog(selectedChekbox.toString()));
-        }
-    }
-
 }

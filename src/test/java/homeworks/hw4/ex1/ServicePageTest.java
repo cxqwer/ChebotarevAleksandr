@@ -2,11 +2,14 @@ package homeworks.hw4.ex1;
 
 import base.SelenideBase;
 import com.codeborne.selenide.Selenide;
+import homeworks.hw3.enums.HomePageData;
 import homeworks.hw3.enums.Users;
 import homeworks.hw4.SelenideServicePage;
 import homeworks.hw4.SelenideSupportPage;
-import homeworks.hw4.enums.ServiceSubcategorysData;
-import homeworks.hw4.enums.SupportData;
+import homeworks.hw4.enums.Checkboxes;
+import homeworks.hw4.enums.Radios;
+import homeworks.hw4.enums.ServiceSubcategoryData;
+import homeworks.hw4.enums.DropdownElements;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -14,7 +17,7 @@ import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.page;
-import static homeworks.hw3.enums.HomePageData.HOME_PAGE_TITLE;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static homeworks.hw3.enums.HomePageData.INDEX_HTML_URL;
 
 // TODO Browser should open in the full screen mode.
@@ -22,15 +25,12 @@ public class ServicePageTest extends SelenideBase {
 
     private SelenideServicePage servicePage;
     private SelenideSupportPage supportPage;
-    private static final SupportData[] SELECTED_CHECKBOXES = new SupportData[]{
-            SupportData.FIRST_CHECKBOXES,
-            SupportData.THIRD_CHECKBOXES
-    };
 
     @BeforeMethod
     public void beforeMethod() {
         //1 Open test site by URL
         Selenide.open(INDEX_HTML_URL.toString());
+        getWebDriver().manage().window().maximize();
         servicePage = page(SelenideServicePage.class);
         supportPage = page(SelenideSupportPage.class);
     }
@@ -44,55 +44,59 @@ public class ServicePageTest extends SelenideBase {
     public void tests() {
 
         //2 Assert Browser title
-        servicePage.checkTitle(HOME_PAGE_TITLE);
+        servicePage.checkTitle(HomePageData.HOME_PAGE_TITLE);
 
         //3 Perform login
         servicePage.login(Users.PITER);
 
         //4 Assert User name in the left-top side of screen that user is loggined
-        servicePage.checkUserIsLoggined(Users.PITER);
+        servicePage.checkUserIsLogged(Users.PITER);
 
         //5 Click on "Service" subcategory in the header and check that drop down contains options
         // TODO Be careful with grammar, I'm sick and tired to fix it
-        servicePage.chekHeaderSecvice(ServiceSubcategorysData.values());
+        servicePage.checkHeaderService(ServiceSubcategoryData.values());
 
         //6 Click on Service subcategory in the left section and check that drop down contains options
-        servicePage.chekLeftService(ServiceSubcategorysData.values());
+        servicePage.checkLeftService(ServiceSubcategoryData.values());
 
         //7 Open through the header menu Service -> Different Elements Page
-        servicePage.openHeaderDifferentElements(SupportData.TITLE);
+        servicePage.openHeaderDifferentElements(HomePageData.DIFFERENT_ELEMENTS_PAGE_TITLE);
 
         // 8 Check interface on Different elements page, it contains all needed elements
-        supportPage.chekAllElements();
+        supportPage.checkNumberСheckboxesAndRadio(4, 4);
 
         // 9 Assert that there is Right Section
-        supportPage.chekRightSection();
+        supportPage.checkRightSection();
 
         // 10 Assert that there is Left Section
-        supportPage.chekLeftSection();
+        supportPage.checkLeftSection();
 
         // 11 Select checkboxes
-        supportPage.selectBoxes(SELECTED_CHECKBOXES);
+        supportPage.selectCheckbox(Checkboxes.WATER);
+        supportPage.selectCheckbox(Checkboxes.WIND);
 
         // 12 Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox. 
-        supportPage.chekChekboxesTrueInLog(SELECTED_CHECKBOXES);
+        supportPage.checkCheckboxInLog(Checkboxes.WATER, true);
+        supportPage.checkCheckboxInLog(Checkboxes.WIND, true);
 
         // 13 Select radio
-        supportPage.selectRadio(SupportData.FIRST_RADIO);
+        supportPage.selectRadio(Radios.GOLD);
 
         // 14 Assert that for radiobutton there is a log row and value is corresponded to the status of
-        supportPage.chekRadioLogValue(SupportData.FIRST_RADIO);
+        supportPage.checkRadioInLog(Radios.GOLD);
 
         // 15 Select in dropdown
-        supportPage.selectDropdown(SupportData.FOURTH_DROPDOWN);
+        supportPage.selectDropdown(DropdownElements.YELLOW);
 
         // 16 Assert that for dropdown there is a log row and value is corresponded to the selected value. 
-        supportPage.chekSelectedColor(SupportData.FOURTH_DROPDOWN);
+        supportPage.checkSelectedColor(DropdownElements.YELLOW);
 
-        //17 Unselect checkboxes
-        supportPage.selectBoxes(SELECTED_CHECKBOXES);
+        //17 Unselecte checkboxes
+        supportPage.selectCheckbox(Checkboxes.WATER);
+        supportPage.selectCheckbox(Checkboxes.WIND);
 
         //18 Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox. 
-        supportPage.chekChekboxesFalseInLog(SELECTED_CHECKBOXES);
+        supportPage.checkCheckboxInLog(Checkboxes.WATER, false);
+        supportPage.checkCheckboxInLog(Checkboxes.WIND, false);
     }
 }

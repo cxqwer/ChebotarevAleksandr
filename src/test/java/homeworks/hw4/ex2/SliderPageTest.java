@@ -2,10 +2,10 @@ package homeworks.hw4.ex2;
 
 import base.SelenideBase;
 import com.codeborne.selenide.Selenide;
+import homeworks.hw3.enums.HomePageData;
 import homeworks.hw3.enums.Users;
 import homeworks.hw4.SelenideServicePage;
 import homeworks.hw4.SelenideSliderPage;
-import homeworks.hw4.enums.SliderData;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -45,37 +45,37 @@ public class SliderPageTest extends SelenideBase {
         servicePage.login(Users.PITER);
 
         //4 Assert User name in the left-top side of screen that user is loggined
-        servicePage.checkUserIsLoggined(Users.PITER);
+        servicePage.checkUserIsLogged(Users.PITER);
 
         //5 Open through the header menu Service -> Dates Page
-        servicePage.openHeaderDates(SliderData.TITLE);
+        servicePage.openHeaderDates(HomePageData.DATES_TITLE);
 
         // TODO The range of the slider is [0, 100] so you can't go beyond ...
         //6 set left slider on 0 and right slider on 100
-        sliderPage.moveSlidersBoundryPosition(-1000, 1000);
+        sliderPage.moveSlidersBoundryPosition(0, 100);
 
         //7 Assert that for "From" and "To" sliders there are logs rows with corresponding values
         // TODO It is not make sense to store one of the data in enum and one of them as is
         // TODO You have to following with one approach
-        sliderPage.chekFromAndToInLogs(SliderData.ZERO, SliderData.HUNDRED);
+        sliderPage.checkFromAndToInLogs(0, 100);
 
         //8 set left slider on 0 and right slider on 0
-        sliderPage.moveSlidersBoundryPosition(-1000, -1000);
+        sliderPage.moveSlidersBoundryPosition(0, 0);
 
         //9 Assert that for "From" and "To" sliders there are logs rows with corresponding values
-        sliderPage.chekFromAndToInLogs(SliderData.ZERO, SliderData.ZERO);
+        sliderPage.checkFromAndToInLogs(0, 0);
 
         //10 set left slider on 100 and right slider on 100
-        sliderPage.moveSlidersBoundryPosition(1000, 1000);
+        sliderPage.moveSlidersBoundryPosition(100, 100);
 
         //11 Assert that for "From" and "To" sliders there are logs rows with corresponding values
-        sliderPage.chekFromAndToInLogs(SliderData.HUNDRED, SliderData.HUNDRED);
+        sliderPage.checkFromAndToInLogs(100, 100);
 
         //12 set left slider on 30 and right slider on 70
-        sliderPage.moveSlidersBoundryPosition(-70, -30);
+        sliderPage.moveSlidersBoundryPosition(30, 70);
 
         //13 Assert that for "From" and "To" sliders there are logs rows with corresponding values
-        sliderPage.chekFromAndToInLogs(SliderData.THIRTY, SliderData.SEVENTY);
+        sliderPage.checkFromAndToInLogs(30, 70);
 
     }
 }

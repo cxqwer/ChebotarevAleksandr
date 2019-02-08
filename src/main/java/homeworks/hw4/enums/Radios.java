@@ -1,16 +1,14 @@
 package homeworks.hw4.enums;
 
-public enum SliderData {
-    TITLE("Dates"),
-    ZERO("0"),
-    HUNDRED("100"),
-    THIRTY("30"),
-    SEVENTY("70");
-
+public enum Radios {
+    GOLD("Gold"),
+    SILVER("Silver"),
+    BRONZE("Bronze"),
+    SELEN("Selen");
 
     private String value;
 
-    SliderData(String value) {
+    Radios(String value) {
         this.value = value;
     }
 
