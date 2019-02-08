@@ -1,5 +1,6 @@
 package homeworks.hw4.enums;
 
+// TODO This is Colors !
 public enum DropdownElements {
     RED("Red"),
     GREEN("Green"),

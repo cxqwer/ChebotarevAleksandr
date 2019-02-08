@@ -1,5 +1,6 @@
 package homeworks.hw4.enums;
 
+// TODO This is the Metals, c'mon man
 public enum Radios {
     GOLD("Gold"),
     SILVER("Silver"),

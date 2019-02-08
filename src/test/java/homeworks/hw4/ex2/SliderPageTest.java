@@ -50,13 +50,10 @@ public class SliderPageTest extends SelenideBase {
         //5 Open through the header menu Service -> Dates Page
         servicePage.openHeaderDates(HomePageData.DATES_TITLE);
 
-        // TODO The range of the slider is [0, 100] so you can't go beyond ...
         //6 set left slider on 0 and right slider on 100
         sliderPage.moveSlidersBoundryPosition(0, 100);
 
         //7 Assert that for "From" and "To" sliders there are logs rows with corresponding values
-        // TODO It is not make sense to store one of the data in enum and one of them as is
-        // TODO You have to following with one approach
         sliderPage.checkFromAndToInLogs(0, 100);
 
         //8 set left slider on 0 and right slider on 0

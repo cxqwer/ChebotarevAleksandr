@@ -1,6 +1,6 @@
 package homeworks.hw4.enums;
 
-public enum Checkboxes {
+public enum NatureElements {
     WATER("Water"),
     Earth("Earth"),
     WIND("Wind"),
@@ -8,7 +8,7 @@ public enum Checkboxes {
 
     private String value;
 
-    Checkboxes(String value) {
+    NatureElements(String value) {
         this.value = value;
     }
 

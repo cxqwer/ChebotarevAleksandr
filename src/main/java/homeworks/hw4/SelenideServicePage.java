@@ -36,9 +36,12 @@ public class SelenideServicePage {
     @FindBy(css = "ul.uui-navigation.nav.navbar-nav.m-l8 li.dropdown")
     private SelenideElement serviceOnHeader;
 
+    // TODO This locator should be improved
     @FindBy(css = "ul.uui-navigation.nav.navbar-nav.m-l8 li.dropdown.open ul")
     private SelenideElement dropDownService;
 
+    // TODO You should NOT create once single element for each menu items !
+    // TODO Use Selenide collection of the element...
     @FindBy(css = "#mCSB_1_container > ul > li:nth-child(3)")
     private SelenideElement serviceOnLeftSection;
 
@@ -68,6 +71,7 @@ public class SelenideServicePage {
         serviceOnHeader.shouldHave(visible);
         serviceOnHeader.click();
         dropDownService.shouldHave(visible);
+        // TODO You can easily verify it with Selenide, take a look on ElementsCollection and Conditions
         List<String> list = dropDownService.$$("li").stream().map(SelenideElement::getText).collect(Collectors.toList());
         assertEquals(values.length, list.size());
         for (ServiceSubcategoryData value : values) {
@@ -80,6 +84,7 @@ public class SelenideServicePage {
         serviceOnLeftSection.shouldHave(visible);
         serviceOnLeftSection.click();
         dropDownServiceLeft.shouldHave(visible);
+        // TODO You can easily verify it with Selenide, take a look on ElementsCollection and Conditions
         List<String> list = dropDownServiceLeft.$$("li").stream().map(SelenideElement::getText).collect(Collectors.toList());
         assertEquals(values.length, list.size());
         for (ServiceSubcategoryData value : values) {
@@ -89,6 +94,8 @@ public class SelenideServicePage {
     }
 
     public void openHeaderDifferentElements(HomePageData title) {
+        // TODO Basically, you should not find elements in method directly.
+        // TODO In this particular case, you can easily select menu item using ElementsCollection
         dropDownService.$("li:nth-child(7)").click();
         assertEquals(getWebDriver().getTitle(), title.toString());
     }
