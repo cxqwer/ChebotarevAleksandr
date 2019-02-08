@@ -6,10 +6,7 @@ import homeworks.hw3.enums.HomePageData;
 import homeworks.hw3.enums.Users;
 import homeworks.hw4.SelenideServicePage;
 import homeworks.hw4.SelenideSupportPage;
-import homeworks.hw4.enums.Checkboxes;
-import homeworks.hw4.enums.Radios;
 import homeworks.hw4.enums.ServiceSubcategoryData;
-import homeworks.hw4.enums.DropdownElements;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -19,8 +16,10 @@ import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static homeworks.hw3.enums.HomePageData.INDEX_HTML_URL;
+import static homeworks.hw4.enums.NatureElements.*;
+import static homeworks.hw4.enums.DropdownElements.*;
+import static homeworks.hw4.enums.Radios.*;
 
-// TODO Browser should open in the full screen mode.
 public class ServicePageTest extends SelenideBase {
 
     private SelenideServicePage servicePage;
@@ -30,6 +29,7 @@ public class ServicePageTest extends SelenideBase {
     public void beforeMethod() {
         //1 Open test site by URL
         Selenide.open(INDEX_HTML_URL.toString());
+        // TODO Nope, take a look on Selenide configurations
         getWebDriver().manage().window().maximize();
         servicePage = page(SelenideServicePage.class);
         supportPage = page(SelenideSupportPage.class);
@@ -53,7 +53,6 @@ public class ServicePageTest extends SelenideBase {
         servicePage.checkUserIsLogged(Users.PITER);
 
         //5 Click on "Service" subcategory in the header and check that drop down contains options
-        // TODO Be careful with grammar, I'm sick and tired to fix it
         servicePage.checkHeaderService(ServiceSubcategoryData.values());
 
         //6 Click on Service subcategory in the left section and check that drop down contains options
@@ -72,31 +71,31 @@ public class ServicePageTest extends SelenideBase {
         supportPage.checkLeftSection();
 
         // 11 Select checkboxes
-        supportPage.selectCheckbox(Checkboxes.WATER);
-        supportPage.selectCheckbox(Checkboxes.WIND);
+        supportPage.selectNatureElements(WATER);
+        supportPage.selectNatureElements(WIND);
 
         // 12 Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox. 
-        supportPage.checkCheckboxInLog(Checkboxes.WATER, true);
-        supportPage.checkCheckboxInLog(Checkboxes.WIND, true);
+        supportPage.checkCheckboxInLog(WATER, true);
+        supportPage.checkCheckboxInLog(WIND, true);
 
         // 13 Select radio
-        supportPage.selectRadio(Radios.GOLD);
+        supportPage.selectRadio(GOLD);
 
         // 14 Assert that for radiobutton there is a log row and value is corresponded to the status of
-        supportPage.checkRadioInLog(Radios.GOLD);
+        supportPage.checkRadioInLog(GOLD);
 
         // 15 Select in dropdown
-        supportPage.selectDropdown(DropdownElements.YELLOW);
+        supportPage.selectDropdown(YELLOW);
 
         // 16 Assert that for dropdown there is a log row and value is corresponded to the selected value. 
-        supportPage.checkSelectedColor(DropdownElements.YELLOW);
+        supportPage.checkSelectedColor(YELLOW);
 
         //17 Unselecte checkboxes
-        supportPage.selectCheckbox(Checkboxes.WATER);
-        supportPage.selectCheckbox(Checkboxes.WIND);
+        supportPage.selectNatureElements(WATER);
+        supportPage.selectNatureElements(WIND);
 
         //18 Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox. 
-        supportPage.checkCheckboxInLog(Checkboxes.WATER, false);
-        supportPage.checkCheckboxInLog(Checkboxes.WIND, false);
+        supportPage.checkCheckboxInLog(WATER, false);
+        supportPage.checkCheckboxInLog(WIND, false);
     }
 }

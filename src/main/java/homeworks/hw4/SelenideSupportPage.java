@@ -2,7 +2,7 @@ package homeworks.hw4;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import homeworks.hw4.enums.Checkboxes;
+import homeworks.hw4.enums.NatureElements;
 import homeworks.hw4.enums.DropdownElements;
 import homeworks.hw4.enums.Radios;
 import org.openqa.selenium.support.FindBy;
@@ -13,9 +13,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-// TODO Code conventions
 public class SelenideSupportPage {
-    // TODO This locator can be improved, most all of them frankly speaking...
     @FindBy(css = "[class='label-checkbox']")
     private ElementsCollection checkboxes;
 
@@ -31,9 +29,11 @@ public class SelenideSupportPage {
     @FindBy(css = "[value='Button']")
     private SelenideElement button;
 
+    // TODO Once again, this locators should be improved
     @FindBy(css = "[class='uui-side-bar right-fix-panel mCustomScrollbar _mCS_2 mCS_no_scrollbar']")
     private SelenideElement rightSection;
 
+    // TODO Once again, this locators should be improved
     @FindBy(css = "[class='uui-side-bar mCustomScrollbar _mCS_1 mCS_no_scrollbar']")
     private SelenideElement leftSection;
 
@@ -43,11 +43,7 @@ public class SelenideSupportPage {
     @FindBy(css = "[class='colors']")
     private SelenideElement colorsSelect;
 
-    // TODO In general, You can parametrised the method that working with log,
-    // TODO create simple locator that can provide you with the whole log string...
-
-    // TODO Take a look on ElementsCollection:find(...)
-
+    // TODO Spelling, again... take a look on IDEA warning
     public void checkNumberСheckboxesAndRadio(int numberCheckboxes, int numberRadios) {
         assertEquals(checkboxes.size(), numberCheckboxes);
         for (SelenideElement element : checkboxes) {
@@ -62,7 +58,6 @@ public class SelenideSupportPage {
         button.shouldHave(visible);
     }
 
-    // TODO Grammar
     public void checkRightSection() {
         rightSection.shouldHave(visible);
     }
@@ -71,14 +66,13 @@ public class SelenideSupportPage {
         leftSection.shouldHave(visible);
     }
 
-    // TODO What kind of 'boxes' you are going to select ?
-    // TODO You have to understand that this is an ACTION,
-    // TODO it should be referenced on domain, on business function...
-    public void selectCheckbox(Checkboxes selectedCheckbox) {
+    // TODO Pay attentions on this name and rename the reset of them with this approach
+    public void selectNatureElements(NatureElements selectedCheckbox) {
         checkboxes.findBy(text(selectedCheckbox.toString())).click();
     }
 
-    public void checkCheckboxInLog(Checkboxes selectedCheckbox, boolean isOn) {
+    public void checkCheckboxInLog(NatureElements selectedCheckbox, boolean isOn) {
+        // TODO You have to use Selenide assertions !
         assertTrue(logs.getText().contains(selectedCheckbox.toString() + ": condition changed to " + isOn));
     }
 
@@ -87,6 +81,7 @@ public class SelenideSupportPage {
     }
 
     public void checkRadioInLog(Radios selectedRadio) {
+        // TODO You have to use Selenide assertions !
         assertTrue(logs.getText().contains("metal: value changed to " + selectedRadio.toString()));
     }
 
@@ -96,6 +91,7 @@ public class SelenideSupportPage {
     }
 
     public void checkSelectedColor(DropdownElements selectedElement) {
+        // TODO You have to use Selenide assertions !
         assertTrue(logs.getText().contains("Colors: value changed to " + selectedElement.toString()));
     }
 }
