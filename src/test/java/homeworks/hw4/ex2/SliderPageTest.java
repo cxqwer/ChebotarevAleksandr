@@ -10,9 +10,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Selenide.close;
-import static com.codeborne.selenide.Selenide.page;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.codeborne.selenide.Selenide.*;
 import static homeworks.hw3.enums.HomePageData.HOME_PAGE_TITLE;
 import static homeworks.hw3.enums.HomePageData.INDEX_HTML_URL;
 
@@ -25,7 +23,6 @@ public class SliderPageTest extends SelenideBase {
     public void beforeMethod() {
         //1 Open test site by URL
         Selenide.open(INDEX_HTML_URL.toString());
-        getWebDriver().manage().window().maximize();
         servicePage = page(SelenideServicePage.class);
         sliderPage = page(SelenideSliderPage.class);
     }
@@ -51,25 +48,25 @@ public class SliderPageTest extends SelenideBase {
         servicePage.openHeaderDates(HomePageData.DATES_TITLE);
 
         //6 set left slider on 0 and right slider on 100
-        sliderPage.moveSlidersBoundryPosition(0, 100);
+        sliderPage.moveSlidersBoundaryPosition(0, 100);
 
         //7 Assert that for "From" and "To" sliders there are logs rows with corresponding values
         sliderPage.checkFromAndToInLogs(0, 100);
 
         //8 set left slider on 0 and right slider on 0
-        sliderPage.moveSlidersBoundryPosition(0, 0);
+        sliderPage.moveSlidersBoundaryPosition(0, 0);
 
         //9 Assert that for "From" and "To" sliders there are logs rows with corresponding values
         sliderPage.checkFromAndToInLogs(0, 0);
 
         //10 set left slider on 100 and right slider on 100
-        sliderPage.moveSlidersBoundryPosition(100, 100);
+        sliderPage.moveSlidersBoundaryPosition(100, 100);
 
         //11 Assert that for "From" and "To" sliders there are logs rows with corresponding values
         sliderPage.checkFromAndToInLogs(100, 100);
 
         //12 set left slider on 30 and right slider on 70
-        sliderPage.moveSlidersBoundryPosition(30, 70);
+        sliderPage.moveSlidersBoundaryPosition(30, 70);
 
         //13 Assert that for "From" and "To" sliders there are logs rows with corresponding values
         sliderPage.checkFromAndToInLogs(30, 70);

@@ -1,6 +1,6 @@
 package homeworks.hw4.enums;
 
-public enum ServiceSubcategoryData {
+public enum SabcategoryData {
     SUPPORT("Support"),
     DATES("Dates"),
     COMPLEX_TABLE("Complex Table"),
@@ -12,7 +12,7 @@ public enum ServiceSubcategoryData {
 
     private String value;
 
-    ServiceSubcategoryData(String value) {
+    SabcategoryData(String value) {
         this.value = value;
     }
 

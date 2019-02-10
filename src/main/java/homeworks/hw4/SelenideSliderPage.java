@@ -12,53 +12,58 @@ public class SelenideSliderPage {
     // TODO It is completely prohibited to create locators in this way ! x2
 
     // TODO Once again, this locators should be improved
-    @FindBy(css = "[class='ui-slider-handle ui-state-default ui-corner-all']")
-    private ElementsCollection sliders;
-
     @FindBy(css = "[class='panel-body-list logs']")
     private SelenideElement logs;
 
-    // TODO Once again, this locators should be improved
-    @FindBy(css = "[class='uui-slider blue range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all']")
-    private SelenideElement slider;
-
-    // TODO Once again, this locators should be improved
-    @FindBy(css = "[class='uui-slider blue range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all'] > a:nth-child(3)")
-    private SelenideElement rightSlider;
-
-    // TODO Once again, this locators should be improved
-    @FindBy(css = "[class='uui-slider blue range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all'] > a:nth-child(1)")
-    private SelenideElement leftSlider;
-
+    @FindBy(css = ".ui-slider-handle.ui-state-default.ui-corner-all")
+    private ElementsCollection sliders;
 
     // TODO You can't use such a this 'magic number' in your algorithm
     // TODO Take a look on Math.round
     // TODO Peace of hint: you can organise your algorithm around current values of slider, it will be easier.
 
-    public void moveSlidersBoundryPosition(int left, int right) {
+    public void moveSlidersBoundaryPosition(int left, int right) {
         assertCorrectValues(left, right);
-        actions().clickAndHold(leftSlider).moveByOffset(-1000, 0).release().build().perform();
-        actions().clickAndHold(rightSlider).moveByOffset(-1000, 0).release().build().perform();
-        // TODO Pay attention, 100 != 100.0
-        int step = (int) Math.round(slider.getSize().width / 100.0);
-        int actualRightValue = Integer.valueOf(leftSlider.getText());
-        int actualLeftValue = Integer.valueOf(leftSlider.getText());
+        SelenideElement leftSlider = sliders.get(0);
+        SelenideElement rightSlider = sliders.get(1);
+        moveSliderLeftEnd(leftSlider);
+        moveSliderRightEnd(rightSlider);
+        int step = step();
+        moveSliderLeftEnd(rightSlider);
         if (right == 100) {
-            actions().clickAndHold(rightSlider).moveByOffset(1000, 0).release().build().perform();
+            moveSliderRightEnd(rightSlider);
         } else {
-            while (actualRightValue != right) {
-                actions().clickAndHold(rightSlider).moveByOffset(step, 0).release().build().perform();
-                actualRightValue = Integer.valueOf(rightSlider.getText());
-            }
+            moveSlider(rightSlider, right, step);
         }
         if (left == 100) {
-            actions().clickAndHold(leftSlider).moveByOffset(1000, 0).release().build().perform();
+            moveSliderRightEnd(leftSlider);
         } else {
-            while (actualLeftValue != left) {
-                actions().clickAndHold(leftSlider).moveByOffset(step, 0).release().build().perform();
-                actualLeftValue = Integer.valueOf(leftSlider.getText());
-            }
+            moveSlider(leftSlider, left, step);
         }
+    }
+
+    public void moveSliderLeftEnd(SelenideElement slider) {
+        actions().dragAndDropBy(slider, -1000, 0).build().perform();
+
+    }
+
+    public void moveSliderRightEnd(SelenideElement slider) {
+        actions().dragAndDropBy(slider, 1000, 0).build().perform();
+    }
+
+    public void moveSlider(SelenideElement slider, int set, int step) {
+        // TODO Pay attention, 100 != 100.0
+        int actualValue = Integer.valueOf(slider.getText());
+        while (actualValue != set) {
+            actions().dragAndDropBy(slider, step, 0).build().perform();
+            actualValue = Integer.valueOf(slider.getText());
+        }
+    }
+
+    public int step() {
+        moveSliderRightEnd(sliders.get(1));
+        moveSliderLeftEnd(sliders.get(0));
+        return (sliders.get(1).getLocation().getX() - sliders.get(0).getLocation().getX()) / 100;
     }
 
     public void checkFromAndToInLogs(int left, int right) {

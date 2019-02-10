@@ -6,7 +6,7 @@ import homeworks.hw3.enums.HomePageData;
 import homeworks.hw3.enums.Users;
 import homeworks.hw4.SelenideServicePage;
 import homeworks.hw4.SelenideSupportPage;
-import homeworks.hw4.enums.ServiceSubcategoryData;
+import homeworks.hw4.enums.SabcategoryData;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -14,11 +14,10 @@ import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.page;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static homeworks.hw3.enums.HomePageData.INDEX_HTML_URL;
 import static homeworks.hw4.enums.NatureElements.*;
-import static homeworks.hw4.enums.DropdownElements.*;
-import static homeworks.hw4.enums.Radios.*;
+import static homeworks.hw4.enums.Colors.*;
+import static homeworks.hw4.enums.Metals.*;
 
 public class ServicePageTest extends SelenideBase {
 
@@ -30,7 +29,6 @@ public class ServicePageTest extends SelenideBase {
         //1 Open test site by URL
         Selenide.open(INDEX_HTML_URL.toString());
         // TODO Nope, take a look on Selenide configurations
-        getWebDriver().manage().window().maximize();
         servicePage = page(SelenideServicePage.class);
         supportPage = page(SelenideSupportPage.class);
     }
@@ -53,16 +51,16 @@ public class ServicePageTest extends SelenideBase {
         servicePage.checkUserIsLogged(Users.PITER);
 
         //5 Click on "Service" subcategory in the header and check that drop down contains options
-        servicePage.checkHeaderService(ServiceSubcategoryData.values());
+        servicePage.checkHeaderService(SabcategoryData.values());
 
         //6 Click on Service subcategory in the left section and check that drop down contains options
-        servicePage.checkLeftService(ServiceSubcategoryData.values());
+        servicePage.checkLeftService(SabcategoryData.values());
 
         //7 Open through the header menu Service -> Different Elements Page
         servicePage.openHeaderDifferentElements(HomePageData.DIFFERENT_ELEMENTS_PAGE_TITLE);
 
         // 8 Check interface on Different elements page, it contains all needed elements
-        supportPage.checkNumberСheckboxesAndRadio(4, 4);
+        supportPage.checkCheckboxesAndRadios(4, 4);
 
         // 9 Assert that there is Right Section
         supportPage.checkRightSection();
@@ -71,8 +69,8 @@ public class ServicePageTest extends SelenideBase {
         supportPage.checkLeftSection();
 
         // 11 Select checkboxes
-        supportPage.selectNatureElements(WATER);
-        supportPage.selectNatureElements(WIND);
+        supportPage.clickNatureElements(WATER);
+        supportPage.clickNatureElements(WIND);
 
         // 12 Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox. 
         supportPage.checkCheckboxInLog(WATER, true);
@@ -91,8 +89,8 @@ public class ServicePageTest extends SelenideBase {
         supportPage.checkSelectedColor(YELLOW);
 
         //17 Unselecte checkboxes
-        supportPage.selectNatureElements(WATER);
-        supportPage.selectNatureElements(WIND);
+        supportPage.clickNatureElements(WATER);
+        supportPage.clickNatureElements(WIND);
 
         //18 Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox. 
         supportPage.checkCheckboxInLog(WATER, false);
