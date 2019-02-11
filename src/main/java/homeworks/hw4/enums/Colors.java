@@ -1,6 +1,5 @@
 package homeworks.hw4.enums;
 
-// TODO This is Colors !
 public enum Colors {
     RED("Red"),
     GREEN("Green"),

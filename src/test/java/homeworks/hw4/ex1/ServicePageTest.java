@@ -6,7 +6,7 @@ import homeworks.hw3.enums.HomePageData;
 import homeworks.hw3.enums.Users;
 import homeworks.hw4.SelenideServicePage;
 import homeworks.hw4.SelenideSupportPage;
-import homeworks.hw4.enums.SabcategoryData;
+import homeworks.hw4.enums.SubcategoryData;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -28,7 +28,6 @@ public class ServicePageTest extends SelenideBase {
     public void beforeMethod() {
         //1 Open test site by URL
         Selenide.open(INDEX_HTML_URL.toString());
-        // TODO Nope, take a look on Selenide configurations
         servicePage = page(SelenideServicePage.class);
         supportPage = page(SelenideSupportPage.class);
     }
@@ -51,13 +50,13 @@ public class ServicePageTest extends SelenideBase {
         servicePage.checkUserIsLogged(Users.PITER);
 
         //5 Click on "Service" subcategory in the header and check that drop down contains options
-        servicePage.checkHeaderService(SabcategoryData.values());
+        servicePage.checkHeaderService(SubcategoryData.values());
 
         //6 Click on Service subcategory in the left section and check that drop down contains options
-        servicePage.checkLeftService(SabcategoryData.values());
+        servicePage.checkLeftService(SubcategoryData.values());
 
         //7 Open through the header menu Service -> Different Elements Page
-        servicePage.openHeaderDifferentElements(HomePageData.DIFFERENT_ELEMENTS_PAGE_TITLE);
+        servicePage.openPageHeaderMenu(SubcategoryData.DIFFERENT);
 
         // 8 Check interface on Different elements page, it contains all needed elements
         supportPage.checkCheckboxesAndRadios(4, 4);

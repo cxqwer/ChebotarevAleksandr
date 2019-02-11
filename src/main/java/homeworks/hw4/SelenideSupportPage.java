@@ -28,11 +28,9 @@ public class SelenideSupportPage {
     @FindBy(css = "[value='Button']")
     private SelenideElement button;
 
-    // TODO Once again, this locators should be improved
     @FindBy(css = "[name='log-sidebar']")
     private SelenideElement rightSection;
 
-    // TODO Once again, this locators should be improved
     @FindBy(css = "#mCSB_1_container")
     private SelenideElement leftSection;
 
@@ -42,7 +40,6 @@ public class SelenideSupportPage {
     @FindBy(css = "[class='colors']")
     private SelenideElement colorsSelect;
 
-    // TODO Spelling, again... take a look on IDEA warning
     public void checkCheckboxesAndRadios(int numberCheckboxes, int numberRadios) {
         assertEquals(checkboxes.size(), numberCheckboxes);
         for (SelenideElement element : checkboxes) {
@@ -65,13 +62,11 @@ public class SelenideSupportPage {
         leftSection.shouldHave(visible);
     }
 
-    // TODO Pay attentions on this name and rename the reset of them with this approach
     public void clickNatureElements(NatureElements selectedCheckbox) {
         checkboxes.findBy(text(selectedCheckbox.toString())).click();
     }
 
     public void checkCheckboxInLog(NatureElements selectedCheckbox, boolean isOn) {
-        // TODO You have to use Selenide assertions !
         logs.shouldHave(text(selectedCheckbox.toString() + ": condition changed to " + isOn));
     }
 
@@ -80,7 +75,6 @@ public class SelenideSupportPage {
     }
 
     public void checkRadioInLog(Metals selectedRadio) {
-        // TODO You have to use Selenide assertions !
         logs.shouldHave(text("metal: value changed to " + selectedRadio.toString()));
     }
 
@@ -90,7 +84,6 @@ public class SelenideSupportPage {
     }
 
     public void checkSelectedColor(Colors selectedElement) {
-        // TODO You have to use Selenide assertions !
         logs.shouldHave(text("Colors: value changed to " + selectedElement.toString()));
     }
 }
