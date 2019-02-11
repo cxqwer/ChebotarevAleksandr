@@ -5,7 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import homeworks.hw3.enums.HomePageData;
 import homeworks.hw3.enums.Users;
-import homeworks.hw4.enums.SabcategoryData;
+import homeworks.hw4.enums.SubcategoryData;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.Arrays;
@@ -38,12 +38,9 @@ public class SelenideServicePage {
     @FindBy(css = "ul.uui-navigation.nav.navbar-nav.m-l8 li.dropdown")
     private SelenideElement serviceOnHeader;
 
-    // TODO This locator should be improved
     @FindBy(css = "[class='dropdown-menu'] li")
     private ElementsCollection dropDownService;
 
-    // TODO You should NOT create once single element for each menu items !
-    // TODO Use Selenide collection of the element...
     @FindBy(css = "[class='menu-title']")
     private ElementsCollection serviceOnLeftSection;
 
@@ -69,31 +66,29 @@ public class SelenideServicePage {
         userName.shouldHave(visible, text(user.name));
     }
 
-    public void checkHeaderService(SabcategoryData[] values) {
-        // TODO You can easily verify it with Selenide, take a look on ElementsCollection and Conditions
+    public void checkHeaderService(SubcategoryData[] values) {
         serviceOnHeader.shouldHave(visible);
         serviceOnHeader.click();
         dropDownService.shouldHaveSize(values.length);
-        List<String> expectedTexts = Arrays.stream(values).map(SabcategoryData::toString).collect(Collectors.toList());
+        List<String> expectedTexts = Arrays.stream(values).map(SubcategoryData::toString).collect(Collectors.toList());
         dropDownService.shouldHave(texts(expectedTexts));
         serviceOnHeader.click();
     }
 
-    public void checkLeftService(SabcategoryData[] values) {
+    public void checkLeftService(SubcategoryData[] values) {
         serviceOnLeftSection.get(0).shouldHave(visible);
         serviceOnLeftSection.get(0).click();
-        // TODO You can easily verify it with Selenide, take a look on ElementsCollection and Conditions
         assertEquals(dropDownServiceLeft.size(), values.length);
-        List<String> expectedTexts = Arrays.stream(values).map(SabcategoryData::toString).collect(Collectors.toList());
+        List<String> expectedTexts = Arrays.stream(values).map(SubcategoryData::toString).collect(Collectors.toList());
         dropDownServiceLeft.shouldHave(texts(expectedTexts));
         serviceOnHeader.click();
     }
 
-    public void openHeaderDifferentElements(HomePageData title) {
-        // TODO Basically, you should not find elements in method directly.
-        // TODO In this particular case, you can easily select menu item using ElementsCollection
-        dropDownService.get(6).click();
-        assertEquals(getWebDriver().getTitle(), title.toString());
+    public void openPageHeaderMenu(SubcategoryData item) {
+        dropDownService.find(text(item.toString())).click();
+        // TODO Basically, this should not be here. It is not really great idea to mix up verification and action
+        // TODO But nevermind, just take it into account.
+//        assertEquals(getWebDriver().getTitle(), title.toString());
     }
 
     public void openHeaderDates(HomePageData title) {

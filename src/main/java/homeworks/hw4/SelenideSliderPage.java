@@ -9,18 +9,11 @@ import static org.testng.Assert.assertTrue;
 
 public class SelenideSliderPage {
 
-    // TODO It is completely prohibited to create locators in this way ! x2
-
-    // TODO Once again, this locators should be improved
     @FindBy(css = "[class='panel-body-list logs']")
     private SelenideElement logs;
 
     @FindBy(css = ".ui-slider-handle.ui-state-default.ui-corner-all")
     private ElementsCollection sliders;
-
-    // TODO You can't use such a this 'magic number' in your algorithm
-    // TODO Take a look on Math.round
-    // TODO Peace of hint: you can organise your algorithm around current values of slider, it will be easier.
 
     public void moveSlidersBoundaryPosition(int left, int right) {
         assertCorrectValues(left, right);
@@ -52,7 +45,6 @@ public class SelenideSliderPage {
     }
 
     public void moveSlider(SelenideElement slider, int set, int step) {
-        // TODO Pay attention, 100 != 100.0
         int actualValue = Integer.valueOf(slider.getText());
         while (actualValue != set) {
             actions().dragAndDropBy(slider, step, 0).build().perform();
