@@ -4,8 +4,6 @@ import base.SelenideBase;
 import com.codeborne.selenide.Selenide;
 import homeworks.hw3.enums.HomePageData;
 import homeworks.hw3.enums.Users;
-import homeworks.hw4.SelenideServicePage;
-import homeworks.hw4.SelenideSupportPage;
 import homeworks.hw4.enums.SubcategoryData;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;

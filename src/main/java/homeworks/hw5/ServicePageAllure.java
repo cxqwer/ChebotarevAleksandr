@@ -96,4 +96,10 @@ public class ServicePageAllure {
         dropDownService.find(text(item.toString())).click();
     }
 
+    @Step("Open Data Page")
+    public void openHeaderDates(HomePageData title) {
+        serviceOnHeader.click();
+        dropDownService.get(1).click();
+        assertEquals(getWebDriver().getTitle(), title.toString());
+    }
 }

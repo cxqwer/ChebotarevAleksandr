@@ -4,8 +4,6 @@ import base.SelenideBase;
 import com.codeborne.selenide.Selenide;
 import homeworks.hw3.enums.HomePageData;
 import homeworks.hw3.enums.Users;
-import homeworks.hw4.SelenideServicePage;
-import homeworks.hw4.SelenideSliderPage;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
@@ -21,15 +19,15 @@ import static homeworks.hw3.enums.HomePageData.INDEX_HTML_URL;
 @Feature("Proper UI display")
 public class AllureSliderPageTest extends SelenideBase {
 
-    private SelenideServicePage servicePage;
-    private SelenideSliderPage sliderPage;
+    private ServicePageAllure servicePage;
+    private SliderPageAllure sliderPage;
 
     @BeforeMethod
     public void beforeMethod() {
         //1 Open test site by URL
         Selenide.open(INDEX_HTML_URL.toString());
-        servicePage = page(SelenideServicePage.class);
-        sliderPage = page(SelenideSliderPage.class);
+        servicePage = page(ServicePageAllure.class);
+        sliderPage = page(SliderPageAllure.class);
     }
 
     @AfterMethod
