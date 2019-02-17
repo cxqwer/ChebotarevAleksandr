@@ -58,7 +58,7 @@ public class ServicePageAllure {
         assertEquals(getWebDriver().getTitle(), title.toString());
     }
 
-    @Step("Perform login")
+    @Step("Perform login {user.password}")
     public void login(Users user) {
         loginIcon.click();
         userField.sendKeys(user.login);
