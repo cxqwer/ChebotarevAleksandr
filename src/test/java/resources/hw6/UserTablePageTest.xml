@@ -1,10 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Cucumber Gherkin Suite">
-    <test name="Cucumber Gherkin Tests" >
+    <test name="Cucumber Gherkin Tests">
 
         <classes>
-            <class name="homeworks.hw6.ex1.RunAcceptance"/>
+            <class name="homeworks.hw6.RunAcceptance"/>
         </classes>
 
     </test>

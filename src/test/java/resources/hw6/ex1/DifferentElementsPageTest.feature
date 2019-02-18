@@ -31,15 +31,11 @@ Feature: Different Elements Page Test
     Then Interface on Different elements page contains all needed elements
     And There is a Right section
     And There is a Left section
-    When I click checkbox 'WATER'
-    And I click checkbox 'WIND'
-    Then Checkbox 'WATER' is correct on log
-    And Checkbox 'WIND' is correct on log
+    When I click checkboxes 'WATER' and 'WIND'
+    Then Checkboxes 'WATER' and 'WIND' is correct on log
     When I select radio button:'SELEN'
     Then Radio button 'SELEN' is correct on log
     When I select 'YELLOW' from the color selection dropdown
     Then Color 'YELLOW' is correct on log
-    When I click checkbox 'WATER'
-    And I click checkbox 'WIND'
-    Then Check checkbox 'WATER' is unchecked
-    And Check checkbox 'WIND' is unchecked
+    When I click checkboxes 'WATER' and 'WIND'
+    Then Check checkboxes 'WATER' and 'WIND' is unchecked

@@ -5,14 +5,16 @@ import com.codeborne.selenide.SelenideElement;
 import homeworks.hw4.enums.Colors;
 import homeworks.hw4.enums.Metals;
 import homeworks.hw4.enums.NatureElements;
+import homeworks.hw6.enums.UserTablePageInfo;
 import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.*;
 
-public class DifferentElemensPageGherkin {
+public class UserTablePage {
 
     @FindBy(css = "[class='label-checkbox']")
     private ElementsCollection checkboxes;
@@ -86,5 +88,9 @@ public class DifferentElemensPageGherkin {
 
     public void checkSelectedColor(Colors selectedElement) {
         logs.shouldHave(text("Colors: value changed to " + selectedElement.toString()));
+    }
+
+    public void checkTitle(UserTablePageInfo title) {
+        assertEquals(getWebDriver().getTitle(), title.toString());
     }
 }

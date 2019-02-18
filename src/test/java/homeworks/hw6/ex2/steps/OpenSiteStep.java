@@ -1,4 +1,4 @@
-package homeworks.hw6.ex1.Steps;
+package homeworks.hw6.ex2.steps;
 
 import cucumber.api.java.en.Given;
 
@@ -7,8 +7,8 @@ import static homeworks.hw3.enums.HomePageData.INDEX_HTML_URL;
 
 public class OpenSiteStep {
 
-        @Given("^I open site$")
-        public void OpenSite(){
-            open(INDEX_HTML_URL.toString());
-        }
+    @Given("^I am on Home Page$")
+    public void OpenSite() {
+        open(INDEX_HTML_URL.toString());
+    }
 }
