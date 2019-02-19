@@ -9,7 +9,7 @@ import org.testng.annotations.*;
 import static com.codeborne.selenide.Selenide.close;
 
 @CucumberOptions(
-        features = {"src/test/java/resources/hw6/ex1", "src/test/java/resources/hw6/ex2"},
+        features = {"src/test/resources/hw6/ex1", "src/test/resources/hw6/ex2"},
         glue = {"classpath:homeworks.hw6.ex1.steps", "classpath:homeworks.hw6.ex2.steps"}
 )
 public class Runner extends AbstractTestNGCucumberTests {

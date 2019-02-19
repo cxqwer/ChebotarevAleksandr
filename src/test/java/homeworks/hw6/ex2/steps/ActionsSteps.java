@@ -3,6 +3,7 @@ package homeworks.hw6.ex2.steps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import homeworks.hw3.enums.Users;
+import homeworks.hw4.enums.SubcategoryData;
 import homeworks.hw6.enums.UsersTable;
 import homeworks.hw6.ex1.HomePageGherkin;
 import homeworks.hw6.ex2.UserTablePage;
@@ -24,9 +25,9 @@ public class ActionsSteps {
         homePage.clickHeaderService();
     }
 
-    @And("^I click on User Table button in Service dropdown$")
-    public void openUserTable() {
-        homePage.openUserTable();
+    @And("^I open '([^\"]*)' in Service dropdown$")
+    public void openUserTable(SubcategoryData category) {
+        homePage.openPageInServiceOfHeader(category);
     }
 
     @When("^I select Vip checkbox for '([^\"]*)'$")

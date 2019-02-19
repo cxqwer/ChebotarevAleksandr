@@ -7,40 +7,47 @@ Feature: Different Elements Page Test
     Then User's name should be 'PITER'
     And Interface should have all the necessary elements
     # TODO 'I expand Service subcategory in the header menu'
-    When I click on Service subcategory in the header
+    When I expand Service subcategory in the header menu
     Then Service dropdown menu in header displays following options
-      | SUPPORT       |
-      | DATES         |
-      | COMPLEX_TABLE |
-      | SIMPLE_TABLE  |
-      | USER_TABLE    |
-      | TABLE_PAGES   |
-      | DIFFERENT     |
-      | PERFORMANCE   |
+      | SUPPORT            |
+      | DATES              |
+      | COMPLEX_TABLE      |
+      | SIMPLE_TABLE       |
+      | USER_TABLE         |
+      | TABLE_PAGES        |
+      | DIFFERENT_ELEMENTS |
+      | PERFORMANCE        |
     When I click on Service subcategory in the left section
     Then Service dropdown in left section displays following options
-      | SUPPORT       |
-      | DATES         |
-      | COMPLEX_TABLE |
-      | SIMPLE_TABLE  |
-      | USER_TABLE    |
-      | TABLE_PAGES   |
-      | DIFFERENT     |
-      | PERFORMANCE   |
+      | SUPPORT            |
+      | DATES              |
+      | COMPLEX_TABLE      |
+      | SIMPLE_TABLE       |
+      | USER_TABLE         |
+      | TABLE_PAGES        |
+      | DIFFERENT_ELEMENTS |
+      | PERFORMANCE        |
     And I click on Service subcategory in the header
     # TODO This method will be better with parameter
-    When I open header menu Service -> Different Elements Page
+    When I open 'DIFFERENT_ELEMENTS' in Service menu of the header
     Then Interface on Different elements page contains all needed elements
     And There is a Right section
     And There is a Left section
     # TODO You should have possibility to pass different amount of elements
     # TODO Oh my, take a look on your HW-4 PO method. It has better name...
-    When I click checkboxes 'WATER' and 'WIND'
-    Then Checkboxes 'WATER' and 'WIND' is correct on log
-    # !TODO
+    When I click nature elements:
+      | WATER |
+      | WIND  |
+    Then Nature elements are true on log:
+      | WATER |
+      | WIND  |
     When I select radio button:'SELEN'
     Then Radio button 'SELEN' is correct on log
     When I select 'YELLOW' from the color selection dropdown
     Then Color 'YELLOW' is correct on log
-    When I click checkboxes 'WATER' and 'WIND'
-    Then Check checkboxes 'WATER' and 'WIND' is unchecked
+    When I click nature elements:
+      | WATER |
+      | WIND  |
+    Then Nature elements are false on log:
+      | WATER |
+      | WIND  |

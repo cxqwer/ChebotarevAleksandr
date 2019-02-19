@@ -8,6 +8,8 @@ import homeworks.hw4.enums.NatureElements;
 import homeworks.hw6.enums.UserTablePageInfo;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
@@ -65,12 +67,16 @@ public class UserTablePage {
         leftSection.shouldHave(visible);
     }
 
-    public void clickNatureElements(NatureElements selectedCheckbox) {
-        checkboxes.findBy(text(selectedCheckbox.toString())).click();
+    public void clickNatureElements(List <NatureElements> natureElements ) {
+        for(NatureElements element: natureElements){
+            checkboxes.findBy(text(element.toString())).click();
+        }
     }
 
-    public void checkCheckboxInLog(NatureElements selectedCheckbox, boolean isOn) {
-        logs.shouldHave(text(selectedCheckbox.toString() + ": condition changed to " + isOn));
+    public void checkCheckboxInLog(List <NatureElements> natureElements, boolean isOn) {
+        for (NatureElements element: natureElements){
+            logs.shouldHave(text(element.toString() + ": condition changed to " + isOn));
+        }
     }
 
     public void selectRadio(Metals radio) {

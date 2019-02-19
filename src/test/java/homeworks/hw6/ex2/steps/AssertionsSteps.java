@@ -21,7 +21,7 @@ public class AssertionsSteps {
         userTablePag.checkTitle(title);
     }
 
-    @And("^'([^\"]*)' NumberType Dropdowns are displayed on User Table Page$")
+    @And("^'([^\"]*)' NumberType Dropdown are displayed on User Table Page$")
     public void checkDropdown(int number) {
         userTablePag.checkTypeDropdown(number);
     }

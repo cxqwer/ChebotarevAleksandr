@@ -56,7 +56,7 @@ public class ServicePageTest extends SelenideBase {
         servicePage.checkLeftService(SubcategoryData.values());
 
         //7 Open through the header menu Service -> Different Elements Page
-        servicePage.openPageHeaderMenu(SubcategoryData.DIFFERENT);
+        servicePage.openPageHeaderMenu(SubcategoryData.DIFFERENT_ELEMENTS);
 
         // 8 Check interface on Different elements page, it contains all needed elements
         supportPage.checkCheckboxesAndRadios(4, 4);

@@ -60,10 +60,9 @@ public class AssertionsSteps {
         differentElementsPage.checkLeftSection();
     }
 
-    @Then("^Checkboxes '([^\"]*)' and '([^\"]*)' is correct on log$")
-    public void checkTrueWaterInLog(NatureElements firstNature, NatureElements secondNature) {
-        differentElementsPage.checkCheckboxInLog(firstNature, true);
-        differentElementsPage.checkCheckboxInLog(secondNature, true);
+    @Then("^Nature elements are true on log:$")
+    public void checkTrueWaterInLog(List <NatureElements> natureElements) {
+        differentElementsPage.checkCheckboxInLog(natureElements, true);
     }
 
     @Then("^Radio button '([^\"]*)' is correct on log$")
@@ -76,10 +75,9 @@ public class AssertionsSteps {
         differentElementsPage.checkSelectedColor(color);
     }
 
-    @Then("^Check checkboxes '([^\"]*)' and '([^\"]*)' is unchecked$")
-    public void checkFalseWaterInLog(NatureElements firstNature, NatureElements secondNature) {
-        differentElementsPage.checkCheckboxInLog(firstNature, false);
-        differentElementsPage.checkCheckboxInLog(secondNature, false);
+    @Then("^Nature elements are false on log:$")
+    public void checkFalseWaterInLog(List <NatureElements> natureElements) {
+        differentElementsPage.checkCheckboxInLog(natureElements, false);
     }
 
 }

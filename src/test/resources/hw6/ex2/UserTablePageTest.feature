@@ -4,9 +4,9 @@ Feature: Use Table Test
     Given I am on Home Page
     And I login as user 'PITER'
     When I click on Service button in Header
-    And I click on User Table button in Service dropdown
+    And I open 'USER_TABLE' in Service dropdown
     Then 'USER_TABLE' page is opened
-    And '6' NumberType Dropdowns are displayed on User Table Page
+    And '6' NumberType Dropdown are displayed on User Table Page
     And '6' User names are displayed on Users Table on User Table Page
     And '6' Description images are displayed on Users Table on User Table Page
     And '6' Description texts under images are displayed on Users Table on User Table Page

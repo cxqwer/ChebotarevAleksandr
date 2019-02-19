@@ -105,11 +105,11 @@ public class HomePageGherkin {
         dropDownServiceLeft.shouldHave(texts(expectedTexts));
     }
 
-    public void openDifferentElements() {
-        dropDownService.get(6).click();
+    public void openPageInServiceOfHeader(SubcategoryData category) {
+        dropDownService.get(category.getNumber()-1).click();
     }
 
-    public void openUserTable() {
-        dropDownService.get(4).click();
-    }
+//    public void openUserTable() {
+//        dropDownService.get(4).click();
+//    }
 }

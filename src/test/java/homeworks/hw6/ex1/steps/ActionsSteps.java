@@ -6,8 +6,11 @@ import homeworks.hw3.enums.Users;
 import homeworks.hw4.enums.Colors;
 import homeworks.hw4.enums.Metals;
 import homeworks.hw4.enums.NatureElements;
+import homeworks.hw4.enums.SubcategoryData;
 import homeworks.hw6.ex1.HomePageGherkin;
 import homeworks.hw6.ex1.UserTablePage;
+
+import java.util.List;
 
 import static com.codeborne.selenide.Selenide.page;
 
@@ -21,25 +24,24 @@ public class ActionsSteps {
         homePage.login(user);
     }
 
-    @When("^I click on Service subcategory in the header$")
-    public void clickHeaderService() {
-        homePage.clickHeaderService();
-    }
-
     @When("^I click on Service subcategory in the left section$")
-    public void clickLeftService() {
+    public void clickServiceInLeftSection() {
         homePage.clickLeftService();
     }
 
-    @When("^I open header menu Service -> Different Elements Page$")
-    public void openDifferentElementsPage() {
-        homePage.openDifferentElements();
+    @When("^I expand Service subcategory in the header menu$")
+    public void expandServiceInHeader() {
+        homePage.clickHeaderService();
     }
 
-    @When("^I click checkboxes '([^\"]*)' and '([^\"]*)'$")
-    public void selectCheckboxWater(NatureElements firstNature, NatureElements secondNature) {
-        differentElementsPage.clickNatureElements(firstNature);
-        differentElementsPage.clickNatureElements(secondNature);
+    @When("^I open '([^\"]*)' in Service menu of the header$")
+    public void openPageInServiceOfHeader(SubcategoryData category) {
+        homePage.openPageInServiceOfHeader(category);
+    }
+
+    @When("^I click nature elements:$")
+    public void selectCheckboxWater(List<NatureElements> natureElements) {
+        differentElementsPage.clickNatureElements(natureElements);
     }
 
     @When("^I select radio button:'([^\"]*)'$")
@@ -53,13 +55,18 @@ public class ActionsSteps {
     }
 
     @When("^I unselect checkboxes '([^\"]*)'$")
-    public void unselectCheckboxWater(NatureElements water) {
+    public void unselectCheckboxWater(List <NatureElements> water) {
         differentElementsPage.clickNatureElements(water);
     }
 
     @And("^I unselect checkbox '([^\"]*)'$")
-    public void unselectCheckboxWind(NatureElements wind) {
+    public void unselectCheckboxWind(List <NatureElements> wind) {
         differentElementsPage.clickNatureElements(wind);
+    }
+
+    @And("^I click on Service subcategory in the header$")
+    public void clickServiceInHeader() {
+        homePage.clickHeaderService();
     }
 
 }
