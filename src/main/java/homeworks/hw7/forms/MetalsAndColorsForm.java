@@ -5,11 +5,14 @@ import com.epam.jdi.light.elements.complex.WebList;
 import com.epam.jdi.light.elements.composite.Form;
 import com.epam.jdi.light.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.jdi.light.elements.pageobjects.annotations.simple.Css;
+import com.epam.jdi.light.ui.html.common.Button;
 import com.epam.jdi.light.ui.html.complex.RadioButtons;
 import homeworks.hw4.enums.NatureElements;
 import homeworks.hw7.entities.MetalsAndColorsElements;
 import homeworks.hw7.enums.Vegetables;
 import org.openqa.selenium.support.FindBy;
+
+import static homeworks.hw7.enums.Vegetables.VEGETABLES;
 
 public class MetalsAndColorsForm extends Form<MetalsAndColorsForm> {
 
@@ -34,21 +37,25 @@ public class MetalsAndColorsForm extends Form<MetalsAndColorsForm> {
     @Css(".vertical-group p")
     public WebList natureElements;
 
-    public void fill(MetalsAndColorsElements elements) {
-        oddSummary.select(String.valueOf(elements.getOddSummary()));
-        evenSummary.select(String.valueOf(elements.getEvenSummary()));
-        for (NatureElements element : elements.getNatureElements()) {
-            natureElements.select(element.toString());
-        }
-        colors.select(elements.getColor().toString());
-        metals.select(elements.getMetal().toString());
-        for (Vegetables vegetable : elements.getVegetables()) {
-            vegetables.select(vegetable.toString());
-        }
+    @FindBy(css = "#submit-button")
+    public Button submit;
+
+    public void clickSubmit() {
+        submit.click();
     }
 
-    public void clickVegetable(Vegetables vegetable) {
-        this.vegetables.select(vegetable.toString());
+    public void fill(MetalsAndColorsElements elements) {
+        oddSummary.select(String.valueOf(elements.oddSummary));
+        evenSummary.select(String.valueOf(elements.evenSummary));
+        for (NatureElements element : elements.natureElements) {
+            natureElements.select(element.toString());
+        }
+        colors.select(elements.color.toString());
+        metals.select(elements.metal.toString());
+        vegetables.select(VEGETABLES.toString());
+        for (Vegetables vegetable : elements.vegetables) {
+            vegetables.select(vegetable.toString());
+        }
     }
 
 }
