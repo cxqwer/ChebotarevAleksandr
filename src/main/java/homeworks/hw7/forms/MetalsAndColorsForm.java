@@ -40,10 +40,6 @@ public class MetalsAndColorsForm extends Form<MetalsAndColorsForm> {
     @FindBy(css = "#submit-button")
     public Button submit;
 
-    public void clickSubmit() {
-        submit.click();
-    }
-
     public void fill(MetalsAndColorsElements elements) {
         oddSummary.select(String.valueOf(elements.oddSummary));
         evenSummary.select(String.valueOf(elements.evenSummary));
@@ -56,6 +52,7 @@ public class MetalsAndColorsForm extends Form<MetalsAndColorsForm> {
         for (Vegetables vegetable : elements.vegetables) {
             vegetables.select(vegetable.toString());
         }
+        submit.click();
     }
 
 }

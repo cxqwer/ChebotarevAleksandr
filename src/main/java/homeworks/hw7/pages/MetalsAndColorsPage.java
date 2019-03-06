@@ -28,7 +28,6 @@ public class MetalsAndColorsPage extends WebPage {
 
     public void fillForm(MetalsAndColorsElements elements){
         elementsForm.fill(elements);
-        elementsForm.clickSubmit();
     }
 
     public void checkResult(MetalsAndColorsElements exactedElements) {
