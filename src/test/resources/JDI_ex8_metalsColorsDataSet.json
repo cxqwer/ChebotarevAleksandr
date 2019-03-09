@@ -1,0 +1,76 @@
+{
+  "data_1": {
+    "oddSummary": 1,
+    "evenSummary": 2,
+    "natureElements": [
+      "Water",
+      "Fire"
+    ],
+    "color": "Red",
+    "metal": "Gold",
+    "vegetables": [
+      "Cucumber"
+    ]
+  },
+  "data_2": {
+    "oddSummary": 1,
+    "evenSummary": 8,
+    "natureElements": [
+      "Earth",
+      "Wind"
+    ],
+    "color": "Green",
+    "metal": "Silver",
+    "vegetables": [
+      "Tomato",
+      "Vegetables"
+    ]
+  },
+  "data_3": {
+    "oddSummary": 7,
+    "evenSummary": 8,
+    "natureElements": [
+      "Earth",
+      "Fire"
+    ],
+    "color": "Blue",
+    "metal": "Bronze",
+    "vegetables": [
+      "Tomato",
+      "Vegetables",
+      "Onion"
+    ]
+  },
+  "data_4": {
+    "oddSummary": 5,
+    "evenSummary": 6,
+    "natureElements": [
+      "Water",
+      "Wind"
+    ],
+    "color": "Yellow",
+    "metal": "Selen",
+    "vegetables": [
+      "Cucumber",
+      "Onion"
+    ]
+  },
+  "data_5": {
+    "oddSummary": 7,
+    "evenSummary": 2,
+    "natureElements": [
+      "Water",
+      "Earth",
+      "Wind",
+      "Fire"
+    ],
+    "color": "Blue",
+    "metal": "Selen",
+    "vegetables": [
+      "Cucumber",
+      "Tomato",
+      "Vegetables",
+      "Onion"
+    ]
+  }
+}

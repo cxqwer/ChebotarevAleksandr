@@ -1,8 +1,8 @@
-package homeworks.hw7;
+package homeworks.hw8;
 
 import com.epam.jdi.light.elements.pageobjects.annotations.JSite;
-import homeworks.hw7.pages.IndexPageJdi;
-import homeworks.hw7.pages.MetalsAndColorsPage;
+import homeworks.hw8.pages.IndexPageJdi;
+import homeworks.hw8.pages.MetalsAndColorsPage;
 
 @JSite("https://epam.github.io/JDI/")
 public class JdiSite {
